@@ -1,0 +1,13 @@
+{
+	"RemapUnityFiles": 
+	{
+		"Module.ProceduralCave.cpp.obj": [
+			"RandomMapGenActor.cpp.obj",
+			"ProceduralCave.cpp.obj"
+		],
+		"Module.ProceduralCave.gen.cpp.obj": [
+			"ProceduralCave.init.gen.cpp.obj",
+			"RandomMapGenActor.gen.cpp.obj"
+		]
+	}
+}

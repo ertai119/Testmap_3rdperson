@@ -1,0 +1,2 @@
+C:\Project\Testmap_3rdperson\Plugins\ProceduralCave\Intermediate\Build\Win64\UE4Editor\Development\ProceduralCave\Definitions.ProceduralCave.h
+C:\Project\Testmap_3rdperson\Plugins\ProceduralCave\Source\ProceduralCave\ProceduralCave.h

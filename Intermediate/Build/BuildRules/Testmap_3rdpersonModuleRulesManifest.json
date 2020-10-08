@@ -1,0 +1,9 @@
+{
+	"SourceFiles": [
+		"C:\\Project\\Testmap_3rdperson\\Source\\Testmap_3rdperson\\Testmap_3rdperson.Build.cs",
+		"C:\\Project\\Testmap_3rdperson\\Plugins\\ProceduralCave\\Source\\ProceduralCave\\ProceduralCave.Build.cs",
+		"C:\\Project\\Testmap_3rdperson\\Source\\Testmap_3rdperson.Target.cs",
+		"C:\\Project\\Testmap_3rdperson\\Source\\Testmap_3rdpersonEditor.Target.cs"
+	],
+	"EngineVersion": "4.25.3"
+}

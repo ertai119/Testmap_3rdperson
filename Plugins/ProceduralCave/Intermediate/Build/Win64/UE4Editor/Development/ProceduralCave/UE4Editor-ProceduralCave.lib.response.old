@@ -1,0 +1,13 @@
+/NOLOGO
+/errorReport:prompt
+/MACHINE:x64
+/SUBSYSTEM:WINDOWS
+/DEF
+/NAME:"UE4Editor-ProceduralCave.dll"
+/IGNORE:4221
+/NODEFAULTLIB
+"C:\Project\Testmap_3rdperson\Intermediate\Build\Win64\Testmap_3rdpersonEditor\Development\Engine\SharedPCH.Engine.ShadowErrors.h.obj"
+"C:\Project\Testmap_3rdperson\Plugins\ProceduralCave\Intermediate\Build\Win64\UE4Editor\Development\ProceduralCave\ProceduralCave.cpp.obj"
+"C:\Project\Testmap_3rdperson\Plugins\ProceduralCave\Intermediate\Build\Win64\UE4Editor\Development\ProceduralCave\Default.rc2.res"
+/OUT:"C:\Project\Testmap_3rdperson\Plugins\ProceduralCave\Intermediate\Build\Win64\UE4Editor\Development\ProceduralCave\UE4Editor-ProceduralCave.lib"
+/INCLUDE:IMPLEMENT_MODULE_ProceduralCave

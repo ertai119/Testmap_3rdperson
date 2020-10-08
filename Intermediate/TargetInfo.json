@@ -1,0 +1,14 @@
+{
+	"Targets": [
+		{
+			"Name": "Testmap_3rdperson",
+			"Path": "C:\\Project\\Testmap_3rdperson\\Source\\Testmap_3rdperson.Target.cs",
+			"Type": "Game"
+		},
+		{
+			"Name": "Testmap_3rdpersonEditor",
+			"Path": "C:\\Project\\Testmap_3rdperson\\Source\\Testmap_3rdpersonEditor.Target.cs",
+			"Type": "Editor"
+		}
+	]
+}

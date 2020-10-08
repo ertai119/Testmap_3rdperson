@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <None Include="..\..\Testmap_3rdperson.uproject" />
+    <Filter Include="Source">
+      <UniqueIdentifier>{B7217D13-292F-4327-9A44-91DFF85C6D91}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Source\Testmap_3rdperson.Target.cs">
+      <Filter>Source</Filter>
+    </None>
+    <None Include="..\..\Source\Testmap_3rdpersonEditor.Target.cs">
+      <Filter>Source</Filter>
+    </None>
+    <Filter Include="Config">
+      <UniqueIdentifier>{FD078E28-DC31-4522-B63D-E4D6562748E5}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Config\DefaultEditor.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultEditorPerProjectUserSettings.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultEngine.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultGame.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultInput.ini">
+      <Filter>Config</Filter>
+    </None>
+    <Filter Include="Plugins">
+      <UniqueIdentifier>{F0260CC8-42FE-4252-B22A-670D24C85A7E}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Plugins\ProceduralCave">
+      <UniqueIdentifier>{307BC6D0-DBD7-419D-9348-7A3A342B1767}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Plugins\ProceduralCave\Source">
+      <UniqueIdentifier>{F9E6F339-A3D4-4EFA-9DC9-AD8D3D3BB26D}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Plugins\ProceduralCave\Source\ProceduralCave">
+      <UniqueIdentifier>{07B5ABA7-FCA9-4C67-BCBC-6AC402E02F74}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Plugins\ProceduralCave\Source\ProceduralCave\ProceduralCave.Build.cs">
+      <Filter>Plugins\ProceduralCave\Source\ProceduralCave</Filter>
+    </None>
+    <ClCompile Include="..\..\Plugins\ProceduralCave\Source\ProceduralCave\ProceduralCave.cpp">
+      <Filter>Plugins\ProceduralCave\Source\ProceduralCave</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Plugins\ProceduralCave\Source\ProceduralCave\ProceduralCave.h">
+      <Filter>Plugins\ProceduralCave\Source\ProceduralCave</Filter>
+    </ClInclude>
+    <Filter Include="Plugins\ProceduralCave\Source\ProceduralCave\Actor">
+      <UniqueIdentifier>{AEC1BDF3-35F3-4E94-B042-0CE1349BF425}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Plugins\ProceduralCave\Source\ProceduralCave\Actor\RandomMapGenActor.cpp">
+      <Filter>Plugins\ProceduralCave\Source\ProceduralCave\Actor</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Plugins\ProceduralCave\Source\ProceduralCave\Actor\RandomMapGenActor.h">
+      <Filter>Plugins\ProceduralCave\Source\ProceduralCave\Actor</Filter>
+    </ClInclude>
+    <None Include="..\..\Plugins\ProceduralCave\ProceduralCave.uplugin">
+      <Filter>Plugins\ProceduralCave</Filter>
+    </None>
+    <Filter Include="Plugins\ProceduralCave\Resources">
+      <UniqueIdentifier>{168CF7EC-076B-4A11-92AB-72DC633922CF}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Plugins\ProceduralCave\Resources\Icon128.png">
+      <Filter>Plugins\ProceduralCave\Resources</Filter>
+    </None>
+    <Filter Include="Source\Testmap_3rdperson">
+      <UniqueIdentifier>{05CCFD62-7947-4C07-912C-BDF8BDD2FB1F}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Source\Testmap_3rdperson\RandomMapGenActor.cpp">
+      <Filter>Source\Testmap_3rdperson</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\Testmap_3rdperson\RandomMapGenActor.h">
+      <Filter>Source\Testmap_3rdperson</Filter>
+    </ClInclude>
+    <None Include="..\..\Source\Testmap_3rdperson\Testmap_3rdperson.Build.cs">
+      <Filter>Source\Testmap_3rdperson</Filter>
+    </None>
+    <ClCompile Include="..\..\Source\Testmap_3rdperson\Testmap_3rdperson.cpp">
+      <Filter>Source\Testmap_3rdperson</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\Testmap_3rdperson\Testmap_3rdperson.h">
+      <Filter>Source\Testmap_3rdperson</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\Testmap_3rdperson\Testmap_3rdpersonCharacter.cpp">
+      <Filter>Source\Testmap_3rdperson</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\Testmap_3rdperson\Testmap_3rdpersonCharacter.h">
+      <Filter>Source\Testmap_3rdperson</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\Testmap_3rdperson\Testmap_3rdpersonGameMode.cpp">
+      <Filter>Source\Testmap_3rdperson</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\Testmap_3rdperson\Testmap_3rdpersonGameMode.h">
+      <Filter>Source\Testmap_3rdperson</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\Testmap_3rdperson\Testmap_3rdpersonPlayerController.cpp">
+      <Filter>Source\Testmap_3rdperson</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\Testmap_3rdperson\Testmap_3rdpersonPlayerController.h">
+      <Filter>Source\Testmap_3rdperson</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

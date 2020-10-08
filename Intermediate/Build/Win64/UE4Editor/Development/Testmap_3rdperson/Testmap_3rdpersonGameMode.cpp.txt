@@ -1,0 +1,15 @@
+C:\Project\Testmap_3rdperson\Intermediate\Build\Win64\UE4Editor\Development\Testmap_3rdperson\Definitions.Testmap_3rdperson.h
+C:\Project\Testmap_3rdperson\Source\Testmap_3rdperson\Testmap_3rdpersonGameMode.h
+C:\Project\UnrealProject\UE_4.25\Engine\Source\Runtime\Engine\Classes\GameFramework/GameModeBase.h
+C:\Project\UnrealProject\UE_4.25\Engine\Source\Runtime\Engine\Classes\Engine/ServerStatReplicator.h
+C:\Project\UnrealProject\UE_4.25\Engine\Intermediate\Build\Win64\UE4Editor\Inc\Engine\ServerStatReplicator.generated.h
+C:\Project\UnrealProject\UE_4.25\Engine\Intermediate\Build\Win64\UE4Editor\Inc\Engine\GameModeBase.generated.h
+C:\Project\Testmap_3rdperson\Intermediate\Build\Win64\UE4Editor\Inc\Testmap_3rdperson\Testmap_3rdpersonGameMode.generated.h
+C:\Project\Testmap_3rdperson\Source\Testmap_3rdperson\Testmap_3rdpersonPlayerController.h
+C:\Project\Testmap_3rdperson\Intermediate\Build\Win64\UE4Editor\Inc\Testmap_3rdperson\Testmap_3rdpersonPlayerController.generated.h
+C:\Project\Testmap_3rdperson\Source\Testmap_3rdperson\Testmap_3rdpersonCharacter.h
+C:\Project\UnrealProject\UE_4.25\Engine\Source\Runtime\Engine\Classes\GameFramework/Character.h
+C:\Project\UnrealProject\UE_4.25\Engine\Source\Runtime\Engine\Classes\GameFramework/RootMotionSource.h
+C:\Project\UnrealProject\UE_4.25\Engine\Intermediate\Build\Win64\UE4Editor\Inc\Engine\RootMotionSource.generated.h
+C:\Project\UnrealProject\UE_4.25\Engine\Intermediate\Build\Win64\UE4Editor\Inc\Engine\Character.generated.h
+C:\Project\Testmap_3rdperson\Intermediate\Build\Win64\UE4Editor\Inc\Testmap_3rdperson\Testmap_3rdpersonCharacter.generated.h
