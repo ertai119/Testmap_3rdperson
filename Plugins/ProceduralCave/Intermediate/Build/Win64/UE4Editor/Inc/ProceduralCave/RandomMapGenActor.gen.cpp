@@ -13,98 +13,15 @@
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
 void EmptyLinkFunctionForGeneratedCodeRandomMapGenActor() {}
 // Cross Module References
-	PROCEDURALCAVE_API UScriptStruct* Z_Construct_UScriptStruct_FCellInfo();
-	UPackage* Z_Construct_UPackage__Script_ProceduralCave();
-	ENGINE_API UClass* Z_Construct_UClass_UStaticMeshComponent_NoRegister();
 	PROCEDURALCAVE_API UClass* Z_Construct_UClass_ARandomMapGenActor_NoRegister();
 	PROCEDURALCAVE_API UClass* Z_Construct_UClass_ARandomMapGenActor();
 	ENGINE_API UClass* Z_Construct_UClass_AActor();
+	UPackage* Z_Construct_UPackage__Script_ProceduralCave();
+	ENGINE_API UClass* Z_Construct_UClass_UMaterial_NoRegister();
+	ENGINE_API UClass* Z_Construct_UClass_UStaticMeshComponent_NoRegister();
 	PROCEDURALMESHCOMPONENT_API UClass* Z_Construct_UClass_UProceduralMeshComponent_NoRegister();
 	ENGINE_API UClass* Z_Construct_UClass_UStaticMesh_NoRegister();
 // End Cross Module References
-class UScriptStruct* FCellInfo::StaticStruct()
-{
-	static class UScriptStruct* Singleton = NULL;
-	if (!Singleton)
-	{
-		extern PROCEDURALCAVE_API uint32 Get_Z_Construct_UScriptStruct_FCellInfo_Hash();
-		Singleton = GetStaticStruct(Z_Construct_UScriptStruct_FCellInfo, Z_Construct_UPackage__Script_ProceduralCave(), TEXT("CellInfo"), sizeof(FCellInfo), Get_Z_Construct_UScriptStruct_FCellInfo_Hash());
-	}
-	return Singleton;
-}
-template<> PROCEDURALCAVE_API UScriptStruct* StaticStruct<FCellInfo>()
-{
-	return FCellInfo::StaticStruct();
-}
-static FCompiledInDeferStruct Z_CompiledInDeferStruct_UScriptStruct_FCellInfo(FCellInfo::StaticStruct, TEXT("/Script/ProceduralCave"), TEXT("CellInfo"), false, nullptr, nullptr);
-static struct FScriptStruct_ProceduralCave_StaticRegisterNativesFCellInfo
-{
-	FScriptStruct_ProceduralCave_StaticRegisterNativesFCellInfo()
-	{
-		UScriptStruct::DeferCppStructOps(FName(TEXT("CellInfo")),new UScriptStruct::TCppStructOps<FCellInfo>);
-	}
-} ScriptStruct_ProceduralCave_StaticRegisterNativesFCellInfo;
-	struct Z_Construct_UScriptStruct_FCellInfo_Statics
-	{
-#if WITH_METADATA
-		static const UE4CodeGen_Private::FMetaDataPairParam Struct_MetaDataParams[];
-#endif
-		static void* NewStructOps();
-#if WITH_METADATA
-		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_meshComp_MetaData[];
-#endif
-		static const UE4CodeGen_Private::FObjectPropertyParams NewProp_meshComp;
-		static const UE4CodeGen_Private::FPropertyParamsBase* const PropPointers[];
-		static const UE4CodeGen_Private::FStructParams ReturnStructParams;
-	};
-#if WITH_METADATA
-	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FCellInfo_Statics::Struct_MetaDataParams[] = {
-		{ "ModuleRelativePath", "Actor/RandomMapGenActor.h" },
-	};
-#endif
-	void* Z_Construct_UScriptStruct_FCellInfo_Statics::NewStructOps()
-	{
-		return (UScriptStruct::ICppStructOps*)new UScriptStruct::TCppStructOps<FCellInfo>();
-	}
-#if WITH_METADATA
-	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FCellInfo_Statics::NewProp_meshComp_MetaData[] = {
-		{ "EditInline", "true" },
-		{ "ModuleRelativePath", "Actor/RandomMapGenActor.h" },
-	};
-#endif
-	const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UScriptStruct_FCellInfo_Statics::NewProp_meshComp = { "meshComp", nullptr, (EPropertyFlags)0x0010000000080008, UE4CodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(FCellInfo, meshComp), Z_Construct_UClass_UStaticMeshComponent_NoRegister, METADATA_PARAMS(Z_Construct_UScriptStruct_FCellInfo_Statics::NewProp_meshComp_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FCellInfo_Statics::NewProp_meshComp_MetaData)) };
-	const UE4CodeGen_Private::FPropertyParamsBase* const Z_Construct_UScriptStruct_FCellInfo_Statics::PropPointers[] = {
-		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FCellInfo_Statics::NewProp_meshComp,
-	};
-	const UE4CodeGen_Private::FStructParams Z_Construct_UScriptStruct_FCellInfo_Statics::ReturnStructParams = {
-		(UObject* (*)())Z_Construct_UPackage__Script_ProceduralCave,
-		nullptr,
-		&NewStructOps,
-		"CellInfo",
-		sizeof(FCellInfo),
-		alignof(FCellInfo),
-		Z_Construct_UScriptStruct_FCellInfo_Statics::PropPointers,
-		UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FCellInfo_Statics::PropPointers),
-		RF_Public|RF_Transient|RF_MarkAsNative,
-		EStructFlags(0x00000005),
-		METADATA_PARAMS(Z_Construct_UScriptStruct_FCellInfo_Statics::Struct_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FCellInfo_Statics::Struct_MetaDataParams))
-	};
-	UScriptStruct* Z_Construct_UScriptStruct_FCellInfo()
-	{
-#if WITH_HOT_RELOAD
-		extern uint32 Get_Z_Construct_UScriptStruct_FCellInfo_Hash();
-		UPackage* Outer = Z_Construct_UPackage__Script_ProceduralCave();
-		static UScriptStruct* ReturnStruct = FindExistingStructIfHotReloadOrDynamic(Outer, TEXT("CellInfo"), sizeof(FCellInfo), Get_Z_Construct_UScriptStruct_FCellInfo_Hash(), false);
-#else
-		static UScriptStruct* ReturnStruct = nullptr;
-#endif
-		if (!ReturnStruct)
-		{
-			UE4CodeGen_Private::ConstructUScriptStruct(ReturnStruct, Z_Construct_UScriptStruct_FCellInfo_Statics::ReturnStructParams);
-		}
-		return ReturnStruct;
-	}
-	uint32 Get_Z_Construct_UScriptStruct_FCellInfo_Hash() { return 1292059749U; }
 	void ARandomMapGenActor::StaticRegisterNativesARandomMapGenActor()
 	{
 	}
@@ -119,19 +36,19 @@ static struct FScriptStruct_ProceduralCave_StaticRegisterNativesFCellInfo
 		static const UE4CodeGen_Private::FMetaDataPairParam Class_MetaDataParams[];
 #endif
 #if WITH_METADATA
+		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_testMat__MetaData[];
+#endif
+		static const UE4CodeGen_Private::FObjectPropertyParams NewProp_testMat_;
+#if WITH_METADATA
+		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_spawnedStaticMeshComps__MetaData[];
+#endif
+		static const UE4CodeGen_Private::FMapPropertyParams NewProp_spawnedStaticMeshComps_;
+		static const UE4CodeGen_Private::FIntPropertyParams NewProp_spawnedStaticMeshComps__Key_KeyProp;
+		static const UE4CodeGen_Private::FObjectPropertyParams NewProp_spawnedStaticMeshComps__ValueProp;
+#if WITH_METADATA
 		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_proceduralMeshComp__MetaData[];
 #endif
 		static const UE4CodeGen_Private::FObjectPropertyParams NewProp_proceduralMeshComp_;
-#if WITH_METADATA
-		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_borderMeshs__MetaData[];
-#endif
-		static const UE4CodeGen_Private::FArrayPropertyParams NewProp_borderMeshs_;
-		static const UE4CodeGen_Private::FObjectPropertyParams NewProp_borderMeshs__Inner;
-#if WITH_METADATA
-		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_meshs__MetaData[];
-#endif
-		static const UE4CodeGen_Private::FArrayPropertyParams NewProp_meshs_;
-		static const UE4CodeGen_Private::FObjectPropertyParams NewProp_meshs__Inner;
 #if WITH_METADATA
 		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_BirthCount_MetaData[];
 #endif
@@ -185,6 +102,10 @@ static struct FScriptStruct_ProceduralCave_StaticRegisterNativesFCellInfo
 #endif
 		static const UE4CodeGen_Private::FIntPropertyParams NewProp_BorderSize;
 #if WITH_METADATA
+		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_SimulateCount_MetaData[];
+#endif
+		static const UE4CodeGen_Private::FIntPropertyParams NewProp_SimulateCount;
+#if WITH_METADATA
 		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_Simulate_MetaData[];
 #endif
 		static void NewProp_Simulate_SetBit(void* Obj);
@@ -217,6 +138,23 @@ static struct FScriptStruct_ProceduralCave_StaticRegisterNativesFCellInfo
 	};
 #endif
 #if WITH_METADATA
+	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_ARandomMapGenActor_Statics::NewProp_testMat__MetaData[] = {
+		{ "Category", "RandomMapGenActor" },
+		{ "ModuleRelativePath", "Actor/RandomMapGenActor.h" },
+	};
+#endif
+	const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ARandomMapGenActor_Statics::NewProp_testMat_ = { "testMat_", nullptr, (EPropertyFlags)0x0020080000000001, UE4CodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(ARandomMapGenActor, testMat_), Z_Construct_UClass_UMaterial_NoRegister, METADATA_PARAMS(Z_Construct_UClass_ARandomMapGenActor_Statics::NewProp_testMat__MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_ARandomMapGenActor_Statics::NewProp_testMat__MetaData)) };
+#if WITH_METADATA
+	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_ARandomMapGenActor_Statics::NewProp_spawnedStaticMeshComps__MetaData[] = {
+		{ "Category", "RandomMapGenActor" },
+		{ "EditInline", "true" },
+		{ "ModuleRelativePath", "Actor/RandomMapGenActor.h" },
+	};
+#endif
+	const UE4CodeGen_Private::FMapPropertyParams Z_Construct_UClass_ARandomMapGenActor_Statics::NewProp_spawnedStaticMeshComps_ = { "spawnedStaticMeshComps_", nullptr, (EPropertyFlags)0x0020088000000009, UE4CodeGen_Private::EPropertyGenFlags::Map, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(ARandomMapGenActor, spawnedStaticMeshComps_), EMapPropertyFlags::None, METADATA_PARAMS(Z_Construct_UClass_ARandomMapGenActor_Statics::NewProp_spawnedStaticMeshComps__MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_ARandomMapGenActor_Statics::NewProp_spawnedStaticMeshComps__MetaData)) };
+	const UE4CodeGen_Private::FIntPropertyParams Z_Construct_UClass_ARandomMapGenActor_Statics::NewProp_spawnedStaticMeshComps__Key_KeyProp = { "spawnedStaticMeshComps__Key", nullptr, (EPropertyFlags)0x0000000000080009, UE4CodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, 1, 0, METADATA_PARAMS(nullptr, 0) };
+	const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ARandomMapGenActor_Statics::NewProp_spawnedStaticMeshComps__ValueProp = { "spawnedStaticMeshComps_", nullptr, (EPropertyFlags)0x0000000000080009, UE4CodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, 1, Z_Construct_UClass_UStaticMeshComponent_NoRegister, METADATA_PARAMS(nullptr, 0) };
+#if WITH_METADATA
 	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_ARandomMapGenActor_Statics::NewProp_proceduralMeshComp__MetaData[] = {
 		{ "Category", "RandomMapGenActor" },
 		{ "EditInline", "true" },
@@ -224,22 +162,6 @@ static struct FScriptStruct_ProceduralCave_StaticRegisterNativesFCellInfo
 	};
 #endif
 	const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ARandomMapGenActor_Statics::NewProp_proceduralMeshComp_ = { "proceduralMeshComp_", nullptr, (EPropertyFlags)0x0020080000080009, UE4CodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(ARandomMapGenActor, proceduralMeshComp_), Z_Construct_UClass_UProceduralMeshComponent_NoRegister, METADATA_PARAMS(Z_Construct_UClass_ARandomMapGenActor_Statics::NewProp_proceduralMeshComp__MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_ARandomMapGenActor_Statics::NewProp_proceduralMeshComp__MetaData)) };
-#if WITH_METADATA
-	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_ARandomMapGenActor_Statics::NewProp_borderMeshs__MetaData[] = {
-		{ "EditInline", "true" },
-		{ "ModuleRelativePath", "Actor/RandomMapGenActor.h" },
-	};
-#endif
-	const UE4CodeGen_Private::FArrayPropertyParams Z_Construct_UClass_ARandomMapGenActor_Statics::NewProp_borderMeshs_ = { "borderMeshs_", nullptr, (EPropertyFlags)0x0020088000000008, UE4CodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(ARandomMapGenActor, borderMeshs_), EArrayPropertyFlags::None, METADATA_PARAMS(Z_Construct_UClass_ARandomMapGenActor_Statics::NewProp_borderMeshs__MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_ARandomMapGenActor_Statics::NewProp_borderMeshs__MetaData)) };
-	const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ARandomMapGenActor_Statics::NewProp_borderMeshs__Inner = { "borderMeshs_", nullptr, (EPropertyFlags)0x0000000000080008, UE4CodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, 0, Z_Construct_UClass_UStaticMeshComponent_NoRegister, METADATA_PARAMS(nullptr, 0) };
-#if WITH_METADATA
-	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_ARandomMapGenActor_Statics::NewProp_meshs__MetaData[] = {
-		{ "EditInline", "true" },
-		{ "ModuleRelativePath", "Actor/RandomMapGenActor.h" },
-	};
-#endif
-	const UE4CodeGen_Private::FArrayPropertyParams Z_Construct_UClass_ARandomMapGenActor_Statics::NewProp_meshs_ = { "meshs_", nullptr, (EPropertyFlags)0x0020088000000008, UE4CodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(ARandomMapGenActor, meshs_), EArrayPropertyFlags::None, METADATA_PARAMS(Z_Construct_UClass_ARandomMapGenActor_Statics::NewProp_meshs__MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_ARandomMapGenActor_Statics::NewProp_meshs__MetaData)) };
-	const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ARandomMapGenActor_Statics::NewProp_meshs__Inner = { "meshs_", nullptr, (EPropertyFlags)0x0000000000080008, UE4CodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, 0, Z_Construct_UClass_UStaticMeshComponent_NoRegister, METADATA_PARAMS(nullptr, 0) };
 #if WITH_METADATA
 	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_ARandomMapGenActor_Statics::NewProp_BirthCount_MetaData[] = {
 		{ "Category", "RandomMapGenActor" },
@@ -332,6 +254,13 @@ static struct FScriptStruct_ProceduralCave_StaticRegisterNativesFCellInfo
 #endif
 	const UE4CodeGen_Private::FIntPropertyParams Z_Construct_UClass_ARandomMapGenActor_Statics::NewProp_BorderSize = { "BorderSize", nullptr, (EPropertyFlags)0x0010000000000001, UE4CodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(ARandomMapGenActor, BorderSize), METADATA_PARAMS(Z_Construct_UClass_ARandomMapGenActor_Statics::NewProp_BorderSize_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_ARandomMapGenActor_Statics::NewProp_BorderSize_MetaData)) };
 #if WITH_METADATA
+	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_ARandomMapGenActor_Statics::NewProp_SimulateCount_MetaData[] = {
+		{ "Category", "RandomMapGenActor" },
+		{ "ModuleRelativePath", "Actor/RandomMapGenActor.h" },
+	};
+#endif
+	const UE4CodeGen_Private::FIntPropertyParams Z_Construct_UClass_ARandomMapGenActor_Statics::NewProp_SimulateCount = { "SimulateCount", nullptr, (EPropertyFlags)0x0010000000000001, UE4CodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(ARandomMapGenActor, SimulateCount), METADATA_PARAMS(Z_Construct_UClass_ARandomMapGenActor_Statics::NewProp_SimulateCount_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_ARandomMapGenActor_Statics::NewProp_SimulateCount_MetaData)) };
+#if WITH_METADATA
 	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_ARandomMapGenActor_Statics::NewProp_Simulate_MetaData[] = {
 		{ "Category", "RandomMapGenActor" },
 		{ "ModuleRelativePath", "Actor/RandomMapGenActor.h" },
@@ -368,11 +297,11 @@ static struct FScriptStruct_ProceduralCave_StaticRegisterNativesFCellInfo
 #endif
 	const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ARandomMapGenActor_Statics::NewProp_FloorMesh = { "FloorMesh", nullptr, (EPropertyFlags)0x0010000000000001, UE4CodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(ARandomMapGenActor, FloorMesh), Z_Construct_UClass_UStaticMesh_NoRegister, METADATA_PARAMS(Z_Construct_UClass_ARandomMapGenActor_Statics::NewProp_FloorMesh_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_ARandomMapGenActor_Statics::NewProp_FloorMesh_MetaData)) };
 	const UE4CodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_ARandomMapGenActor_Statics::PropPointers[] = {
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ARandomMapGenActor_Statics::NewProp_testMat_,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ARandomMapGenActor_Statics::NewProp_spawnedStaticMeshComps_,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ARandomMapGenActor_Statics::NewProp_spawnedStaticMeshComps__Key_KeyProp,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ARandomMapGenActor_Statics::NewProp_spawnedStaticMeshComps__ValueProp,
 		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ARandomMapGenActor_Statics::NewProp_proceduralMeshComp_,
-		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ARandomMapGenActor_Statics::NewProp_borderMeshs_,
-		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ARandomMapGenActor_Statics::NewProp_borderMeshs__Inner,
-		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ARandomMapGenActor_Statics::NewProp_meshs_,
-		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ARandomMapGenActor_Statics::NewProp_meshs__Inner,
 		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ARandomMapGenActor_Statics::NewProp_BirthCount,
 		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ARandomMapGenActor_Statics::NewProp_DeathCount,
 		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ARandomMapGenActor_Statics::NewProp_RoomThresholdAfterProcessed,
@@ -386,6 +315,7 @@ static struct FScriptStruct_ProceduralCave_StaticRegisterNativesFCellInfo
 		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ARandomMapGenActor_Statics::NewProp_Width,
 		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ARandomMapGenActor_Statics::NewProp_SquareSize,
 		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ARandomMapGenActor_Statics::NewProp_BorderSize,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ARandomMapGenActor_Statics::NewProp_SimulateCount,
 		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ARandomMapGenActor_Statics::NewProp_Simulate,
 		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ARandomMapGenActor_Statics::NewProp_Generate,
 		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ARandomMapGenActor_Statics::NewProp_WallMesh,
@@ -418,7 +348,7 @@ static struct FScriptStruct_ProceduralCave_StaticRegisterNativesFCellInfo
 		}
 		return OuterClass;
 	}
-	IMPLEMENT_CLASS(ARandomMapGenActor, 2628359968);
+	IMPLEMENT_CLASS(ARandomMapGenActor, 3739991691);
 	template<> PROCEDURALCAVE_API UClass* StaticClass<ARandomMapGenActor>()
 	{
 		return ARandomMapGenActor::StaticClass();

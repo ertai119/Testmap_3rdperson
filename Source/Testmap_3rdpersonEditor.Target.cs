@@ -1,4 +1,4 @@
-// Copyright Epic Games, Inc. All Rights Reserved.
+﻿// Copyright Epic Games, Inc. All Rights Reserved.
 
 using UnrealBuildTool;
 using System.Collections.Generic;
@@ -10,5 +10,8 @@ public class Testmap_3rdpersonEditorTarget : TargetRules
 		Type = TargetType.Editor;
 		DefaultBuildSettings = BuildSettingsVersion.V2;
 		ExtraModuleNames.Add("Testmap_3rdperson");
+
+		/*bCompileChaos = true;
+		bUseChaos = true;*/
 	}
 }

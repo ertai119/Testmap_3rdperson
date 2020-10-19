@@ -3,7 +3,7 @@
   <ItemGroup>
     <None Include="..\..\Testmap_3rdperson.uproject" />
     <Filter Include="Source">
-      <UniqueIdentifier>{B7217D13-292F-4327-9A44-91DFF85C6D91}</UniqueIdentifier>
+      <UniqueIdentifier>{00E811C9-247C-4914-B91A-6ACEE2B4A973}</UniqueIdentifier>
     </Filter>
     <None Include="..\..\Source\Testmap_3rdperson.Target.cs">
       <Filter>Source</Filter>
@@ -11,8 +11,10 @@
     <None Include="..\..\Source\Testmap_3rdpersonEditor.Target.cs">
       <Filter>Source</Filter>
     </None>
+    <None Include="..\..\.gitattributes" />
+    <None Include="..\..\.gitignore" />
     <Filter Include="Config">
-      <UniqueIdentifier>{FD078E28-DC31-4522-B63D-E4D6562748E5}</UniqueIdentifier>
+      <UniqueIdentifier>{B25CEF3E-03BB-48B4-8D52-909B4A9002CA}</UniqueIdentifier>
     </Filter>
     <None Include="..\..\Config\DefaultEditor.ini">
       <Filter>Config</Filter>
@@ -30,16 +32,16 @@
       <Filter>Config</Filter>
     </None>
     <Filter Include="Plugins">
-      <UniqueIdentifier>{F0260CC8-42FE-4252-B22A-670D24C85A7E}</UniqueIdentifier>
+      <UniqueIdentifier>{8DADB0E0-5BC0-4D61-8DB2-B4C7DC8C2589}</UniqueIdentifier>
     </Filter>
     <Filter Include="Plugins\ProceduralCave">
-      <UniqueIdentifier>{307BC6D0-DBD7-419D-9348-7A3A342B1767}</UniqueIdentifier>
+      <UniqueIdentifier>{4EF830B2-79ED-4CB5-BFBB-7C7BC7F35F90}</UniqueIdentifier>
     </Filter>
     <Filter Include="Plugins\ProceduralCave\Source">
-      <UniqueIdentifier>{F9E6F339-A3D4-4EFA-9DC9-AD8D3D3BB26D}</UniqueIdentifier>
+      <UniqueIdentifier>{00376E14-F2C9-432F-876A-3922A39F92F7}</UniqueIdentifier>
     </Filter>
     <Filter Include="Plugins\ProceduralCave\Source\ProceduralCave">
-      <UniqueIdentifier>{07B5ABA7-FCA9-4C67-BCBC-6AC402E02F74}</UniqueIdentifier>
+      <UniqueIdentifier>{C057E97D-F0EE-4688-B8CF-07362D5D3346}</UniqueIdentifier>
     </Filter>
     <None Include="..\..\Plugins\ProceduralCave\Source\ProceduralCave\ProceduralCave.Build.cs">
       <Filter>Plugins\ProceduralCave\Source\ProceduralCave</Filter>
@@ -51,7 +53,7 @@
       <Filter>Plugins\ProceduralCave\Source\ProceduralCave</Filter>
     </ClInclude>
     <Filter Include="Plugins\ProceduralCave\Source\ProceduralCave\Actor">
-      <UniqueIdentifier>{AEC1BDF3-35F3-4E94-B042-0CE1349BF425}</UniqueIdentifier>
+      <UniqueIdentifier>{46AE8421-8115-41BF-A573-30C419EFB86D}</UniqueIdentifier>
     </Filter>
     <ClCompile Include="..\..\Plugins\ProceduralCave\Source\ProceduralCave\Actor\RandomMapGenActor.cpp">
       <Filter>Plugins\ProceduralCave\Source\ProceduralCave\Actor</Filter>
@@ -59,24 +61,21 @@
     <ClInclude Include="..\..\Plugins\ProceduralCave\Source\ProceduralCave\Actor\RandomMapGenActor.h">
       <Filter>Plugins\ProceduralCave\Source\ProceduralCave\Actor</Filter>
     </ClInclude>
+    <Filter Include="Plugins\ProceduralCave\Source\ProceduralCave\Generator">
+      <UniqueIdentifier>{BEA1279C-8FD3-444C-9672-0A9C39B51FFD}</UniqueIdentifier>
+    </Filter>
     <None Include="..\..\Plugins\ProceduralCave\ProceduralCave.uplugin">
       <Filter>Plugins\ProceduralCave</Filter>
     </None>
     <Filter Include="Plugins\ProceduralCave\Resources">
-      <UniqueIdentifier>{168CF7EC-076B-4A11-92AB-72DC633922CF}</UniqueIdentifier>
+      <UniqueIdentifier>{6731AF59-74D5-462E-8D0C-CBE1E02FA768}</UniqueIdentifier>
     </Filter>
     <None Include="..\..\Plugins\ProceduralCave\Resources\Icon128.png">
       <Filter>Plugins\ProceduralCave\Resources</Filter>
     </None>
     <Filter Include="Source\Testmap_3rdperson">
-      <UniqueIdentifier>{05CCFD62-7947-4C07-912C-BDF8BDD2FB1F}</UniqueIdentifier>
+      <UniqueIdentifier>{B5AF4A75-EDB2-4CB6-900A-501BD21A55EF}</UniqueIdentifier>
     </Filter>
-    <ClCompile Include="..\..\Source\Testmap_3rdperson\RandomMapGenActor.cpp">
-      <Filter>Source\Testmap_3rdperson</Filter>
-    </ClCompile>
-    <ClInclude Include="..\..\Source\Testmap_3rdperson\RandomMapGenActor.h">
-      <Filter>Source\Testmap_3rdperson</Filter>
-    </ClInclude>
     <None Include="..\..\Source\Testmap_3rdperson\Testmap_3rdperson.Build.cs">
       <Filter>Source\Testmap_3rdperson</Filter>
     </None>
@@ -103,6 +102,22 @@
     </ClCompile>
     <ClInclude Include="..\..\Source\Testmap_3rdperson\Testmap_3rdpersonPlayerController.h">
       <Filter>Source\Testmap_3rdperson</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\Plugins\ProceduralCave\Source\ProceduralCave\Generator\MeshGenerator.cpp">
+      <Filter>Plugins\ProceduralCave\Source\ProceduralCave\Generator</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Plugins\ProceduralCave\Source\ProceduralCave\Generator\RoomGenerator.cpp">
+      <Filter>Plugins\ProceduralCave\Source\ProceduralCave\Generator</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\Plugins\ProceduralCave\Source\ProceduralCave\Generator\MeshGenerator.h">
+      <Filter>Plugins\ProceduralCave\Source\ProceduralCave\Generator</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Plugins\ProceduralCave\Source\ProceduralCave\Generator\RoomGenerator.h">
+      <Filter>Plugins\ProceduralCave\Source\ProceduralCave\Generator</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -4,4 +4,6 @@ C:\Project\UnrealProject\UE_4.25\Engine\Source\Runtime\CoreUObject\Public\UObjec
 C:\Project\UnrealProject\UE_4.25\Engine\Source\Runtime\CoreUObject\Public\UObject/MetaData.h
 C:/Project/Testmap_3rdperson/Plugins/ProceduralCave/Intermediate/Build/Win64/UE4Editor/Inc/ProceduralCave/RandomMapGenActor.gen.cpp
 C:\Project\Testmap_3rdperson\Plugins\ProceduralCave\Source\ProceduralCave/Actor/RandomMapGenActor.h
+C:\Project\Testmap_3rdperson\Plugins\ProceduralCave\Source\ProceduralCave\Actor\../Generator/MeshGenerator.h
+C:\Project\Testmap_3rdperson\Plugins\ProceduralCave\Source\ProceduralCave\Actor\../Generator/RoomGenerator.h
 C:\Project\Testmap_3rdperson\Plugins\ProceduralCave\Intermediate\Build\Win64\UE4Editor\Inc\ProceduralCave\RandomMapGenActor.generated.h
