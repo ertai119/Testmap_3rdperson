@@ -35,17 +35,14 @@ public:
     void InitializeMap();
     void DeInitializeMap();
 
-    void GenerateMesh(const TArray<TArray<int32>>& map);
+    void GenerateMesh(const TArray<TArray<int32>>& map, const FColor& color, bool useProceduralMeshComp = true);
     void CreateFloor();
     FVector CoordToWorldPosition(const Coord& coord) const;
 
     void CreateToStaticMesh(int32 sectionIndex);
 
-    UPROPERTY(EditAnywhere)
-    UStaticMesh* FloorMesh;
-
-    UPROPERTY(EditAnywhere)
-    UStaticMesh* WallMesh;
+	UPROPERTY(EditAnywhere)
+	UMaterial* TestMat;
 
     UPROPERTY(EditAnywhere)
     bool Generate;
@@ -103,10 +100,6 @@ protected:
     UPROPERTY(EditAnywhere)
     TMap<int32, class UStaticMeshComponent*> spawnedStaticMeshComps_;
 
-	UPROPERTY(EditAnywhere)
-	class UMaterial* testMat_;
-
-    TSharedPtr<MeshGenerator> meshGen_;
-    TSharedPtr<RoomGenerator> roomGen_;
-
+    TWeakObjectPtr<class UMeshGenerator> meshGen_;
+    TWeakObjectPtr<class URoomGenerator> roomGen_;
 };

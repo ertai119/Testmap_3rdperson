@@ -60,8 +60,7 @@ DEFINE_VTABLE_PTR_HELPER_CTOR_CALLER(ARandomMapGenActor); \
 
 #define Testmap_3rdperson_Plugins_ProceduralCave_Source_ProceduralCave_Actor_RandomMapGenActor_h_15_PRIVATE_PROPERTY_OFFSET \
 	FORCEINLINE static uint32 __PPO__proceduralMeshComp_() { return STRUCT_OFFSET(ARandomMapGenActor, proceduralMeshComp_); } \
-	FORCEINLINE static uint32 __PPO__spawnedStaticMeshComps_() { return STRUCT_OFFSET(ARandomMapGenActor, spawnedStaticMeshComps_); } \
-	FORCEINLINE static uint32 __PPO__testMat_() { return STRUCT_OFFSET(ARandomMapGenActor, testMat_); }
+	FORCEINLINE static uint32 __PPO__spawnedStaticMeshComps_() { return STRUCT_OFFSET(ARandomMapGenActor, spawnedStaticMeshComps_); }
 
 
 #define Testmap_3rdperson_Plugins_ProceduralCave_Source_ProceduralCave_Actor_RandomMapGenActor_h_12_PROLOG

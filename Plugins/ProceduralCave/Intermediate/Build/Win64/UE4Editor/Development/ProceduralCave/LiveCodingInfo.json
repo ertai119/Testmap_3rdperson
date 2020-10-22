@@ -8,8 +8,10 @@
 			"RoomGenerator.cpp.obj"
 		],
 		"Module.ProceduralCave.gen.cpp.obj": [
+			"RandomMapGenActor.gen.cpp.obj",
+			"MeshGenerator.gen.cpp.obj",
 			"ProceduralCave.init.gen.cpp.obj",
-			"RandomMapGenActor.gen.cpp.obj"
+			"RoomGenerator.gen.cpp.obj"
 		]
 	}
 }

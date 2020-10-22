@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "RoomGenerator.generated.h"
 
 class Coord
 {
@@ -54,9 +55,14 @@ public:
 	void SetAccessibleFromMainRoom();
 };
 
-class RoomGenerator
+UCLASS()
+class URoomGenerator : public UObject
 {
+	GENERATED_BODY()
+
 public:
+
+	URoomGenerator(const FObjectInitializer& ObjectInitializer);
 
 	void InitializeMap(int32 height, int32 width, float spawnProbability);
 	void SimulateMap(int32 birthCount, int32 deathCount);
@@ -64,6 +70,7 @@ public:
 	void ProcessMap(int32 wallThreshold, int32 roomThreshold, int32 wallThresholdAfterGen, int32 roomThresholdAfterGen, int32 passgeSize);
 	TArray<TArray<Coord>> GetRegions(int32 tileType) const;
 	const TArray<TArray<int32>>& GetMaps() const { return maps_; }
+	const TArray<PassageInfo>& GetPassageInfo() const { return passageInfo_; }
 
 private:
 	int32 CountAliveNeighbours(int32 x, int32 y);	

@@ -83,7 +83,13 @@ static void InitArray2D(T& array, int32 height, int32 width, int32 initValue = 0
 	}
 }
 
-void RoomGenerator::InitializeMap(int32 height, int32 width, float spawnProbability)
+URoomGenerator::URoomGenerator(const FObjectInitializer& ObjectInitializer)
+	: Super(ObjectInitializer)
+{
+
+}
+
+void URoomGenerator::InitializeMap(int32 height, int32 width, float spawnProbability)
 {
 	height_ = height;
 	width_ = width;
@@ -111,7 +117,7 @@ void RoomGenerator::InitializeMap(int32 height, int32 width, float spawnProbabil
 	}
 }
 
-void RoomGenerator::SimulateMap(int32 birthCount, int32 deathCount)
+void URoomGenerator::SimulateMap(int32 birthCount, int32 deathCount)
 {
 	TArray<TArray<int32>> newMap;
 	InitArray2D(newMap, height_, width_);
@@ -143,7 +149,7 @@ void RoomGenerator::SimulateMap(int32 birthCount, int32 deathCount)
 	maps_ = newMap;
 }
 
-int32 RoomGenerator::CountAliveNeighbours(int32 x, int32 y)
+int32 URoomGenerator::CountAliveNeighbours(int32 x, int32 y)
 {
 	int32 count = 0;
 	for (int32 i = -1; i < 2; i++)
@@ -169,7 +175,7 @@ int32 RoomGenerator::CountAliveNeighbours(int32 x, int32 y)
 	return count;
 }
 
-void RoomGenerator::ProcessMap(int32 wallThreshold, int32 roomThreshold, int32 wallThresholdAfterGen, int32 roomThresholdAfterGen, int32 passgeSize)
+void URoomGenerator::ProcessMap(int32 wallThreshold, int32 roomThreshold, int32 wallThresholdAfterGen, int32 roomThresholdAfterGen, int32 passgeSize)
 {
 	passageSize_ = passgeSize;
 
@@ -257,7 +263,7 @@ void RoomGenerator::ProcessMap(int32 wallThreshold, int32 roomThreshold, int32 w
 	}
 }
 
-TArray<TArray<Coord>> RoomGenerator::GetRegions(int32 tileType) const
+TArray<TArray<Coord>> URoomGenerator::GetRegions(int32 tileType) const
 {
 	TArray<TArray<Coord>> regions;
 	TArray<TArray<int32>> mapFlags;
@@ -283,7 +289,7 @@ TArray<TArray<Coord>> RoomGenerator::GetRegions(int32 tileType) const
 	return regions;
 }
 
-TArray<Coord> RoomGenerator::GetRegionTiles(int32 startX, int32 startY) const
+TArray<Coord> URoomGenerator::GetRegionTiles(int32 startX, int32 startY) const
 {
 	TArray<Coord> tiles;
 	TArray<TArray<int32>> mapFlags;
@@ -320,12 +326,12 @@ TArray<Coord> RoomGenerator::GetRegionTiles(int32 startX, int32 startY) const
 	return tiles;
 }
 
-bool RoomGenerator::IsInMap(int32 x, int32 y) const
+bool URoomGenerator::IsInMap(int32 x, int32 y) const
 {
 	return x >= 0 && x < width_ && y >= 0 && y < height_;
 }
 
-void RoomGenerator::ConnectedClosestRooms(const TArray<RoomPtr>& allRooms, bool forceAccessbilityFromMainRoom /*= false*/)
+void URoomGenerator::ConnectedClosestRooms(const TArray<RoomPtr>& allRooms, bool forceAccessbilityFromMainRoom /*= false*/)
 {
 	TArray<RoomPtr> roomListA;
 	TArray<RoomPtr> roomListB;
@@ -414,7 +420,7 @@ void RoomGenerator::ConnectedClosestRooms(const TArray<RoomPtr>& allRooms, bool 
 	}
 }
 
-void RoomGenerator::CreatePassage(RoomPtr roomA, RoomPtr roomB, const Coord& tileA, const Coord& tileB)
+void URoomGenerator::CreatePassage(RoomPtr roomA, RoomPtr roomB, const Coord& tileA, const Coord& tileB)
 {
 	Room::ConnectRooms(roomA, roomB);
 
@@ -458,7 +464,7 @@ void RoomGenerator::CreatePassage(RoomPtr roomA, RoomPtr roomB, const Coord& til
 	}
 }
 
-TArray<Coord> RoomGenerator::GetLine(Coord from, Coord to) const
+TArray<Coord> URoomGenerator::GetLine(Coord from, Coord to) const
 {
 	TArray<Coord> line;
 
@@ -516,7 +522,7 @@ TArray<Coord> RoomGenerator::GetLine(Coord from, Coord to) const
 	return line;
 }
 
-TArray<Coord> RoomGenerator::DrawCircle(const Coord& tile, int32 r)
+TArray<Coord> URoomGenerator::DrawCircle(const Coord& tile, int32 r)
 {
 	TArray<Coord> retTiles;
 	for (int32 x = -r; x <= r; x++)

@@ -2,7 +2,8 @@
 
 #pragma once
 
-//#include "CoreMinimal.h"
+#include "CoreMinimal.h"
+#include "MeshGenerator.generated.h"
 
 class UNodeBase
 {
@@ -55,8 +56,11 @@ public:
 };
 using SquarePtr = TSharedPtr<USquare>;
 
-class MeshGenerator
+UCLASS()
+class UMeshGenerator : public UObject
 {
+    GENERATED_BODY()
+
 public:
     TArray<TArray<SquarePtr>> squares_;
 	TArray<FVector> vertices_;
@@ -65,9 +69,10 @@ public:
 	TSet<int32> checkedVertices_;
     TMap<int32, TArray<TrianglePtr>> triangleMaps_;
 
-    MeshGenerator(TArray<TArray<int32>> map, float offsetZ, float squareSize);
-
-    void CalculateTriangle(float wallHeight);
+    UMeshGenerator(const FObjectInitializer& ObjectInitializer);
+    
+    void InitData(TArray<TArray<int32>> map, float offsetZ, float squareSize);
+    void CalculateTriangle(float wallHeight, bool includeFloor);
     
 private:
 	void AssignVertices(const TArray<NodePtr>& points);
@@ -77,6 +82,6 @@ private:
 	int32 GetConnectedOutlineVertex(int32 vertexIndex);
 	void FollowOutline(int32 vertexIndex, int32 outlineIndex);
 	bool IsOutlineEdge(int32 vertexA, int32 vertexB);
-	void TriangulateSquare(SquarePtr square, float offsetHeight);
-	void MeshFromPoints(const TArray<NodePtr>& points);
+	void TriangulateSquare(SquarePtr square, float offsetHeight, bool ccw = true);
+	void MeshFromPoints(const TArray<NodePtr>& points, bool ccw);
 };

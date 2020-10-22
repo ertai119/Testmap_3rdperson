@@ -17,10 +17,9 @@ void EmptyLinkFunctionForGeneratedCodeRandomMapGenActor() {}
 	PROCEDURALCAVE_API UClass* Z_Construct_UClass_ARandomMapGenActor();
 	ENGINE_API UClass* Z_Construct_UClass_AActor();
 	UPackage* Z_Construct_UPackage__Script_ProceduralCave();
-	ENGINE_API UClass* Z_Construct_UClass_UMaterial_NoRegister();
 	ENGINE_API UClass* Z_Construct_UClass_UStaticMeshComponent_NoRegister();
 	PROCEDURALMESHCOMPONENT_API UClass* Z_Construct_UClass_UProceduralMeshComponent_NoRegister();
-	ENGINE_API UClass* Z_Construct_UClass_UStaticMesh_NoRegister();
+	ENGINE_API UClass* Z_Construct_UClass_UMaterial_NoRegister();
 // End Cross Module References
 	void ARandomMapGenActor::StaticRegisterNativesARandomMapGenActor()
 	{
@@ -35,10 +34,6 @@ void EmptyLinkFunctionForGeneratedCodeRandomMapGenActor() {}
 #if WITH_METADATA
 		static const UE4CodeGen_Private::FMetaDataPairParam Class_MetaDataParams[];
 #endif
-#if WITH_METADATA
-		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_testMat__MetaData[];
-#endif
-		static const UE4CodeGen_Private::FObjectPropertyParams NewProp_testMat_;
 #if WITH_METADATA
 		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_spawnedStaticMeshComps__MetaData[];
 #endif
@@ -116,13 +111,9 @@ void EmptyLinkFunctionForGeneratedCodeRandomMapGenActor() {}
 		static void NewProp_Generate_SetBit(void* Obj);
 		static const UE4CodeGen_Private::FBoolPropertyParams NewProp_Generate;
 #if WITH_METADATA
-		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_WallMesh_MetaData[];
+		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_TestMat_MetaData[];
 #endif
-		static const UE4CodeGen_Private::FObjectPropertyParams NewProp_WallMesh;
-#if WITH_METADATA
-		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_FloorMesh_MetaData[];
-#endif
-		static const UE4CodeGen_Private::FObjectPropertyParams NewProp_FloorMesh;
+		static const UE4CodeGen_Private::FObjectPropertyParams NewProp_TestMat;
 		static const UE4CodeGen_Private::FPropertyParamsBase* const PropPointers[];
 		static const FCppClassTypeInfoStatic StaticCppClassTypeInfo;
 		static const UE4CodeGen_Private::FClassParams ClassParams;
@@ -137,13 +128,6 @@ void EmptyLinkFunctionForGeneratedCodeRandomMapGenActor() {}
 		{ "ModuleRelativePath", "Actor/RandomMapGenActor.h" },
 	};
 #endif
-#if WITH_METADATA
-	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_ARandomMapGenActor_Statics::NewProp_testMat__MetaData[] = {
-		{ "Category", "RandomMapGenActor" },
-		{ "ModuleRelativePath", "Actor/RandomMapGenActor.h" },
-	};
-#endif
-	const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ARandomMapGenActor_Statics::NewProp_testMat_ = { "testMat_", nullptr, (EPropertyFlags)0x0020080000000001, UE4CodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(ARandomMapGenActor, testMat_), Z_Construct_UClass_UMaterial_NoRegister, METADATA_PARAMS(Z_Construct_UClass_ARandomMapGenActor_Statics::NewProp_testMat__MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_ARandomMapGenActor_Statics::NewProp_testMat__MetaData)) };
 #if WITH_METADATA
 	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_ARandomMapGenActor_Statics::NewProp_spawnedStaticMeshComps__MetaData[] = {
 		{ "Category", "RandomMapGenActor" },
@@ -283,21 +267,13 @@ void EmptyLinkFunctionForGeneratedCodeRandomMapGenActor() {}
 	}
 	const UE4CodeGen_Private::FBoolPropertyParams Z_Construct_UClass_ARandomMapGenActor_Statics::NewProp_Generate = { "Generate", nullptr, (EPropertyFlags)0x0010000000000001, UE4CodeGen_Private::EPropertyGenFlags::Bool | UE4CodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, 1, sizeof(bool), sizeof(ARandomMapGenActor), &Z_Construct_UClass_ARandomMapGenActor_Statics::NewProp_Generate_SetBit, METADATA_PARAMS(Z_Construct_UClass_ARandomMapGenActor_Statics::NewProp_Generate_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_ARandomMapGenActor_Statics::NewProp_Generate_MetaData)) };
 #if WITH_METADATA
-	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_ARandomMapGenActor_Statics::NewProp_WallMesh_MetaData[] = {
+	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_ARandomMapGenActor_Statics::NewProp_TestMat_MetaData[] = {
 		{ "Category", "RandomMapGenActor" },
 		{ "ModuleRelativePath", "Actor/RandomMapGenActor.h" },
 	};
 #endif
-	const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ARandomMapGenActor_Statics::NewProp_WallMesh = { "WallMesh", nullptr, (EPropertyFlags)0x0010000000000001, UE4CodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(ARandomMapGenActor, WallMesh), Z_Construct_UClass_UStaticMesh_NoRegister, METADATA_PARAMS(Z_Construct_UClass_ARandomMapGenActor_Statics::NewProp_WallMesh_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_ARandomMapGenActor_Statics::NewProp_WallMesh_MetaData)) };
-#if WITH_METADATA
-	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_ARandomMapGenActor_Statics::NewProp_FloorMesh_MetaData[] = {
-		{ "Category", "RandomMapGenActor" },
-		{ "ModuleRelativePath", "Actor/RandomMapGenActor.h" },
-	};
-#endif
-	const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ARandomMapGenActor_Statics::NewProp_FloorMesh = { "FloorMesh", nullptr, (EPropertyFlags)0x0010000000000001, UE4CodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(ARandomMapGenActor, FloorMesh), Z_Construct_UClass_UStaticMesh_NoRegister, METADATA_PARAMS(Z_Construct_UClass_ARandomMapGenActor_Statics::NewProp_FloorMesh_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_ARandomMapGenActor_Statics::NewProp_FloorMesh_MetaData)) };
+	const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ARandomMapGenActor_Statics::NewProp_TestMat = { "TestMat", nullptr, (EPropertyFlags)0x0010000000000001, UE4CodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(ARandomMapGenActor, TestMat), Z_Construct_UClass_UMaterial_NoRegister, METADATA_PARAMS(Z_Construct_UClass_ARandomMapGenActor_Statics::NewProp_TestMat_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_ARandomMapGenActor_Statics::NewProp_TestMat_MetaData)) };
 	const UE4CodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_ARandomMapGenActor_Statics::PropPointers[] = {
-		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ARandomMapGenActor_Statics::NewProp_testMat_,
 		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ARandomMapGenActor_Statics::NewProp_spawnedStaticMeshComps_,
 		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ARandomMapGenActor_Statics::NewProp_spawnedStaticMeshComps__Key_KeyProp,
 		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ARandomMapGenActor_Statics::NewProp_spawnedStaticMeshComps__ValueProp,
@@ -318,8 +294,7 @@ void EmptyLinkFunctionForGeneratedCodeRandomMapGenActor() {}
 		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ARandomMapGenActor_Statics::NewProp_SimulateCount,
 		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ARandomMapGenActor_Statics::NewProp_Simulate,
 		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ARandomMapGenActor_Statics::NewProp_Generate,
-		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ARandomMapGenActor_Statics::NewProp_WallMesh,
-		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ARandomMapGenActor_Statics::NewProp_FloorMesh,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ARandomMapGenActor_Statics::NewProp_TestMat,
 	};
 	const FCppClassTypeInfoStatic Z_Construct_UClass_ARandomMapGenActor_Statics::StaticCppClassTypeInfo = {
 		TCppClassTypeTraits<ARandomMapGenActor>::IsAbstract,
@@ -348,7 +323,7 @@ void EmptyLinkFunctionForGeneratedCodeRandomMapGenActor() {}
 		}
 		return OuterClass;
 	}
-	IMPLEMENT_CLASS(ARandomMapGenActor, 3739991691);
+	IMPLEMENT_CLASS(ARandomMapGenActor, 3980674244);
 	template<> PROCEDURALCAVE_API UClass* StaticClass<ARandomMapGenActor>()
 	{
 		return ARandomMapGenActor::StaticClass();

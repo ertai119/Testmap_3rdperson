@@ -1,4 +1,5 @@
 ﻿#include "MeshGenerator.h"
+#include <DrawDebugHelpers.h>
 
 UNodeBase::UNodeBase(FVector pos)
 {
@@ -60,10 +61,24 @@ USquare::USquare(ControlNodePtr topLeft, ControlNodePtr topRight, ControlNodePtr
 	}
 }
 
-MeshGenerator::MeshGenerator(TArray<TArray<int32>> map, float offsetZ, float squareSize)
+UMeshGenerator::UMeshGenerator(const FObjectInitializer& ObjectInitializer)
+	: Super(ObjectInitializer)
+{
+}
+
+void UMeshGenerator::InitData(TArray<TArray<int32>> map, float offsetZ, float squareSize)
 {
 	int32 nodeCountY = map.Num();
+	if (nodeCountY == 0)
+	{
+		return;
+	}
 	int32 nodeCountX = map[0].Num();
+	if (nodeCountX == 0)
+	{
+		return;
+	}
+
 	float mapWidth = nodeCountX * squareSize;
 	float mapHeight = nodeCountY * squareSize;
 
@@ -105,16 +120,24 @@ MeshGenerator::MeshGenerator(TArray<TArray<int32>> map, float offsetZ, float squ
 	}
 }
 
-void MeshGenerator::CalculateTriangle(float wallHeight)
+void UMeshGenerator::CalculateTriangle(float wallHeight, bool includeFloor)
 {
 	for (int32 y = 0; y < squares_.Num(); y++)
 	{
 		for (int32 x = 0; x < squares_[0].Num(); x++)
 		{
-			TriangulateSquare(squares_[y][x], wallHeight);
+			TriangulateSquare(squares_[y][x], wallHeight, true);
 		}
 	}
 
+	TArray<FVector> dumpVertices;
+	TArray<int32> dumpTriangles;
+	if (includeFloor)
+	{
+		dumpVertices = vertices_;
+		dumpTriangles = triangles_;
+	}
+	
 	CalculateMeshOutlines();
 
 	TArray<FVector> wallVertices;
@@ -141,17 +164,32 @@ void MeshGenerator::CalculateTriangle(float wallHeight)
 		}
 	}
 
-	if (wallVertices.Num() > 0)
+	vertices_.Append(wallVertices);
+	triangles_.Append(wallTriangles);
+
+	if (includeFloor)
 	{
-		vertices_.Append(wallVertices);
+		TArray<int32> floorTriangles;
+		FVector offset = FVector::ZeroVector + FVector(0.f, 0.f, -wallHeight);
+		for (auto& vertex : dumpVertices)
+		{
+			vertex += offset;
+		}
+
+		int32 floorIndexStartOffset = vertices_.Num();
+		for (int32 i = 0; i < dumpTriangles.Num(); i += 3)
+		{
+			floorTriangles.Add(floorIndexStartOffset + dumpTriangles[i]);
+			floorTriangles.Add(floorIndexStartOffset + dumpTriangles[i + 2]);
+			floorTriangles.Add(floorIndexStartOffset + dumpTriangles[i + 1]);
+		}
+
+		vertices_.Append(dumpVertices);
+		triangles_.Append(floorTriangles);
 	}
-	if (wallTriangles.Num() > 0)
-	{
-		triangles_.Append(wallTriangles);
-	}	
 }
 
-void MeshGenerator::TriangulateSquare(SquarePtr square, float offsetHeight)
+void UMeshGenerator::TriangulateSquare(SquarePtr square, float offsetHeight, bool ccw /*= true*/)
 {
 	switch (square->configuration_)
 	{
@@ -160,55 +198,55 @@ void MeshGenerator::TriangulateSquare(SquarePtr square, float offsetHeight)
 
 		// 1point
 	case 1:
-		MeshFromPoints({ square->centerLeft_, square->centerBottom_, square->bottomLeft_ });
+		MeshFromPoints({ square->centerLeft_, square->centerBottom_, square->bottomLeft_ }, ccw);
 		break;
 	case 2:
-		MeshFromPoints({ square->bottomRight_, square->centerBottom_, square->centerRight_ });
+		MeshFromPoints({ square->bottomRight_, square->centerBottom_, square->centerRight_ }, ccw);
 		break;
 	case 4:
-		MeshFromPoints({ square->topRight_, square->centerRight_, square->centerTop_ });
+		MeshFromPoints({ square->topRight_, square->centerRight_, square->centerTop_ }, ccw);
 		break;
 	case 8:
-		MeshFromPoints({ square->topLeft_, square->centerTop_, square->centerLeft_ });
+		MeshFromPoints({ square->topLeft_, square->centerTop_, square->centerLeft_ }, ccw);
 		break;
 
 		// 2 points
 	case 3:
-		MeshFromPoints({ square->centerRight_, square->bottomRight_, square->bottomLeft_, square->centerLeft_ });
+		MeshFromPoints({ square->centerRight_, square->bottomRight_, square->bottomLeft_, square->centerLeft_ }, ccw);
 		break;
 	case 6:
-		MeshFromPoints({ square->centerTop_, square->topRight_, square->bottomRight_, square->centerBottom_ });
+		MeshFromPoints({ square->centerTop_, square->topRight_, square->bottomRight_, square->centerBottom_ }, ccw);
 		break;
 	case 9:
-		MeshFromPoints({ square->topLeft_, square->centerTop_, square->centerBottom_, square->bottomLeft_ });
+		MeshFromPoints({ square->topLeft_, square->centerTop_, square->centerBottom_, square->bottomLeft_ }, ccw);
 		break;
 	case 12:
-		MeshFromPoints({ square->topLeft_, square->topRight_, square->centerRight_, square->centerLeft_ });
+		MeshFromPoints({ square->topLeft_, square->topRight_, square->centerRight_, square->centerLeft_ }, ccw);
 		break;
 	case 5:
-		MeshFromPoints({ square->centerTop_, square->topRight_, square->centerRight_, square->centerBottom_, square->bottomLeft_, square->centerLeft_ });
+		MeshFromPoints({ square->centerTop_, square->topRight_, square->centerRight_, square->centerBottom_, square->bottomLeft_, square->centerLeft_ }, ccw);
 		break;
 	case 10:
-		MeshFromPoints({ square->topLeft_, square->centerTop_, square->centerRight_, square->bottomRight_, square->centerBottom_, square->centerLeft_ });
+		MeshFromPoints({ square->topLeft_, square->centerTop_, square->centerRight_, square->bottomRight_, square->centerBottom_, square->centerLeft_ }, ccw);
 		break;
 
 		// 3 points
 	case 7:
-		MeshFromPoints({ square->centerTop_, square->topRight_, square->bottomRight_, square->bottomLeft_, square->centerLeft_ });
+		MeshFromPoints({ square->centerTop_, square->topRight_, square->bottomRight_, square->bottomLeft_, square->centerLeft_ }, ccw);
 		break;
 	case 11:
-		MeshFromPoints({ square->topLeft_, square->centerTop_, square->centerRight_, square->bottomRight_, square->bottomLeft_ });
+		MeshFromPoints({ square->topLeft_, square->centerTop_, square->centerRight_, square->bottomRight_, square->bottomLeft_ }, ccw);
 		break;
 	case 13:
-		MeshFromPoints({ square->topLeft_, square->topRight_, square->centerRight_, square->centerBottom_, square->bottomLeft_ });
+		MeshFromPoints({ square->topLeft_, square->topRight_, square->centerRight_, square->centerBottom_, square->bottomLeft_ }, ccw);
 		break;
 	case 14:
-		MeshFromPoints({ square->topLeft_, square->topRight_, square->bottomRight_, square->centerBottom_, square->centerLeft_ });
+		MeshFromPoints({ square->topLeft_, square->topRight_, square->bottomRight_, square->centerBottom_, square->centerLeft_ }, ccw);
 		break;
 
 		// 4 points
 	case 15:
-		MeshFromPoints({ square->topLeft_, square->topRight_, square->bottomRight_, square->bottomLeft_ });
+		MeshFromPoints({ square->topLeft_, square->topRight_, square->bottomRight_, square->bottomLeft_ }, ccw);
 
 		checkedVertices_.Add(square->topLeft_->vertexIndex_);
 		checkedVertices_.Add(square->topRight_->vertexIndex_);
@@ -219,30 +257,60 @@ void MeshGenerator::TriangulateSquare(SquarePtr square, float offsetHeight)
 	}
 }
 
-void MeshGenerator::MeshFromPoints(const TArray<NodePtr>& points)
+void UMeshGenerator::MeshFromPoints(const TArray<NodePtr>& points, bool ccw)
 {
 	AssignVertices(points);
 
 	int32 count = points.Num();
 	if (count >= 3)
 	{
-		CreateTriangle(points[0], points[1], points[2]);
+		if (ccw)
+		{
+			CreateTriangle(points[0], points[1], points[2]);
+		}
+		else
+		{
+			CreateTriangle(points[0], points[2], points[1]);
+		}		
 	}
 	if (count >= 4)
 	{
-		CreateTriangle(points[0], points[2], points[3]);
+		if (ccw)
+		{
+			CreateTriangle(points[0], points[2], points[3]);
+		}
+		else
+		{
+			CreateTriangle(points[0], points[3], points[2]);
+		}
+		
 	}
 	if (count >= 5)
 	{
-		CreateTriangle(points[0], points[3], points[4]);
+		if (ccw)
+		{
+			CreateTriangle(points[0], points[3], points[4]);
+		}
+		else
+		{
+			CreateTriangle(points[0], points[4], points[3]);
+		}
+		
 	}
 	if (count >= 6)
 	{
-		CreateTriangle(points[0], points[4], points[5]);
+		if (ccw)
+		{
+			CreateTriangle(points[0], points[4], points[5]);
+		}
+		else
+		{
+			CreateTriangle(points[0], points[5], points[4]);
+		}		
 	}
 }
 
-void MeshGenerator::AssignVertices(const TArray<NodePtr>& points)
+void UMeshGenerator::AssignVertices(const TArray<NodePtr>& points)
 {
 	for (int32 i = 0; i < points.Num(); i++)
 	{
@@ -254,7 +322,7 @@ void MeshGenerator::AssignVertices(const TArray<NodePtr>& points)
 	}
 }
 
-void MeshGenerator::CreateTriangle(NodePtr a, NodePtr b, NodePtr c)
+void UMeshGenerator::CreateTriangle(NodePtr a, NodePtr b, NodePtr c)
 {
 	triangles_.Add(a->vertexIndex_);
 	triangles_.Add(b->vertexIndex_);
@@ -266,13 +334,13 @@ void MeshGenerator::CreateTriangle(NodePtr a, NodePtr b, NodePtr c)
 	AddTriangleToMap(triangle->vertexIndexC_, triangle);
 }
 
-void MeshGenerator::AddTriangleToMap(int32 vertexKey, TrianglePtr triangle)
+void UMeshGenerator::AddTriangleToMap(int32 vertexKey, TrianglePtr triangle)
 {
 	auto& list = triangleMaps_.FindOrAdd(vertexKey);
 	list.Add(triangle);
 }
 
-void MeshGenerator::CalculateMeshOutlines()
+void UMeshGenerator::CalculateMeshOutlines()
 {
 	for (int32 vertexIndex = 0; vertexIndex < vertices_.Num(); vertexIndex++)
 	{
@@ -294,7 +362,7 @@ void MeshGenerator::CalculateMeshOutlines()
 	}
 }
 
-int32 MeshGenerator::GetConnectedOutlineVertex(int32 vertexIndex)
+int32 UMeshGenerator::GetConnectedOutlineVertex(int32 vertexIndex)
 {
 	auto it = triangleMaps_.Find(vertexIndex);
 	if (it)
@@ -322,7 +390,7 @@ int32 MeshGenerator::GetConnectedOutlineVertex(int32 vertexIndex)
 	return INDEX_NONE;
 }
 
-void MeshGenerator::FollowOutline(int32 vertexIndex, int32 outlineIndex)
+void UMeshGenerator::FollowOutline(int32 vertexIndex, int32 outlineIndex)
 {
 	outlines_[outlineIndex].Add(vertexIndex);
 	checkedVertices_.Add(vertexIndex);
@@ -333,7 +401,7 @@ void MeshGenerator::FollowOutline(int32 vertexIndex, int32 outlineIndex)
 	}
 }
 
-bool MeshGenerator::IsOutlineEdge(int32 vertexA, int32 vertexB)
+bool UMeshGenerator::IsOutlineEdge(int32 vertexA, int32 vertexB)
 {
 	int32 sharedTriangleCount = 0;
 

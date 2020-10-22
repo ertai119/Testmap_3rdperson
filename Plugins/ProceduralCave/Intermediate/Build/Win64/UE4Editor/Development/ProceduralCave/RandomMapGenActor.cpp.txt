@@ -1,7 +1,9 @@
 C:\Project\Testmap_3rdperson\Plugins\ProceduralCave\Intermediate\Build\Win64\UE4Editor\Development\ProceduralCave\Definitions.ProceduralCave.h
 C:\Project\Testmap_3rdperson\Plugins\ProceduralCave\Source\ProceduralCave\Actor\RandomMapGenActor.h
 C:\Project\Testmap_3rdperson\Plugins\ProceduralCave\Source\ProceduralCave\Actor\../Generator/MeshGenerator.h
+C:\Project\Testmap_3rdperson\Plugins\ProceduralCave\Intermediate\Build\Win64\UE4Editor\Inc\ProceduralCave\MeshGenerator.generated.h
 C:\Project\Testmap_3rdperson\Plugins\ProceduralCave\Source\ProceduralCave\Actor\../Generator/RoomGenerator.h
+C:\Project\Testmap_3rdperson\Plugins\ProceduralCave\Intermediate\Build\Win64\UE4Editor\Inc\ProceduralCave\RoomGenerator.generated.h
 C:\Project\Testmap_3rdperson\Plugins\ProceduralCave\Intermediate\Build\Win64\UE4Editor\Inc\ProceduralCave\RandomMapGenActor.generated.h
 C:\Project\UnrealProject\UE_4.25\Engine\Source\Runtime\Engine\Public\DrawDebugHelpers.h
 C:\Project\UnrealProject\UE_4.25\Engine\Source\../Plugins/Runtime/ProceduralMeshComponent/Source/ProceduralMeshComponent/Public/ProceduralMeshComponent.h

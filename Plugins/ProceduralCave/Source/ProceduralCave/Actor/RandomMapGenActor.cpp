@@ -53,11 +53,9 @@ void ARandomMapGenActor::PostEditChangeProperty(FPropertyChangedEvent& PropertyC
         {
             if (Generate)
             {
-				roomGen_ = MakeShared<RoomGenerator>();
+				roomGen_ = NewObject<URoomGenerator>(this, TEXT("room"));
 				roomGen_->InitializeMap(Height, Width, SpawnProbability);
 				
-                //DrawCells();
-                
                 for (int32 i = 0; i < SimulateCount; i++)
                 {
 					roomGen_->SimulateMap(BirthCount, DeathCount);
@@ -65,25 +63,31 @@ void ARandomMapGenActor::PostEditChangeProperty(FPropertyChangedEvent& PropertyC
 
 				roomGen_->ProcessMap(WallThreshold, RoomThreshold, WallThresholdAfterProcessed, RoomThresholdAfterProcessed, PassageSize);
 
-                TArray<TArray<int32>> borderMap;
-                InitArray2D(borderMap, Height + BorderSize * 2, Width + BorderSize * 2);
+				auto fnMakeBorder = [this](const TArray<Coord>& tiles)
+				{
+					TArray<TArray<int32>> borderMap;
+					InitArray2D(borderMap, Height + BorderSize * 2, Width + BorderSize * 2, LIVE_CELL);
 
-                for (int32 x = 0; x < borderMap[0].Num(); x++)
-                {
-                    for (int32 y = 0; y < borderMap.Num(); y++)
-                    {
-                        if (x >= BorderSize && x < Width + BorderSize && y >= BorderSize && y < Height + BorderSize)
-                        {
-                            borderMap[y][x] = roomGen_->GetMaps()[y- BorderSize][x- BorderSize];
-                        }
-                        else
-                        {
-                            borderMap[y][x] = DEAD_CELL;
-                        }
-                    }
-                }
+					for (const auto& tile : tiles)
+					{
+						borderMap[tile.tileY_ + BorderSize][tile.tileX_ + BorderSize] = DEAD_CELL;
+					}
+					return borderMap;
+				};                
 
-                GenerateMesh(borderMap);
+				TArray<TArray<Coord>> allWalls = roomGen_->GetRegions(DEAD_CELL);
+				for (const auto& wall : allWalls)
+				{
+					auto maps = fnMakeBorder(wall);
+					//GenerateMesh(maps, FColor::Black, false);
+				}                
+
+				const auto& passageInfos = roomGen_->GetPassageInfo();
+				for (const auto& passage : passageInfos)
+				{
+					auto maps = fnMakeBorder(passage.tiles_);
+					GenerateMesh(maps, FColor::Red, true);
+				}
             }
             else
             {
@@ -112,39 +116,36 @@ void ARandomMapGenActor::Tick(float DeltaTime)
 
 }
 
-void ARandomMapGenActor::GenerateMesh(const TArray<TArray<int32>>& map)
+void ARandomMapGenActor::GenerateMesh(const TArray<TArray<int32>>& map, const FColor& color, bool useProceduralMeshComp /*= true*/)
 {
-    meshGen_ = MakeShared<MeshGenerator>(map, 0.f, SquareSize);
+    meshGen_ = NewObject<UMeshGenerator>(this, TEXT("mesh"));
+	meshGen_->InitData(map, 0.f, SquareSize);
+    meshGen_->CalculateTriangle(WallHeight, true);
 
-    meshGen_->CalculateTriangle(WallHeight);
-/*
-    for (int32 y = 0; y < squareGrid_->squares_.Num(); y++)
-    {
-        for (int32 x = 0; x < squareGrid_->squares_[0].Num(); x++)
-        {
-            TriangulateSquare(squareGrid_->squares_[y][x]);
-        }
-    }*/
-
-    //int32 SectionIndex, const TArray<FVector>& Vertices, const TArray<int32>& Triangles, const TArray<FVector>& Normals, const TArray<FVector2D>& UV0, const TArray<FColor>& VertexColors, const TArray<FProcMeshTangent>& Tangents, bool bCreateCollision
-    if (proceduralMeshComp_)
+	if (proceduralMeshComp_ && useProceduralMeshComp)
     {
         TArray<FColor> colors;
+		TArray<FVector2D> uv;
         for (int32 i = 0; i < meshGen_->vertices_.Num(); i++)
         {
-            colors.Add(FColor::Black);
+            colors.Add(color);
+			uv.Add(FVector2D(0.5f, 0.5f));
         }
         int32 newSectionIndex = proceduralMeshComp_->GetNumSections();
-        proceduralMeshComp_->CreateMeshSection(newSectionIndex, meshGen_->vertices_, meshGen_->triangles_, {}, {}, {}, {}, {}, colors, {}, true);
+        proceduralMeshComp_->CreateMeshSection(newSectionIndex, meshGen_->vertices_, meshGen_->triangles_, {}, {}, uv, {}, {}, colors, {}, true);
 
-		//CreateToStaticMesh(newSectionIndex);
+		CreateToStaticMesh(newSectionIndex);
     }
     else
     {
-        //DrawDebugMesh(GetWorld(), vertices_, triangles_, FColor::Black, false, 10.f);
+		for (auto& position : meshGen_->vertices_)
+		{
+			position += GetActorLocation();
+		}
+		
+        DrawDebugMesh(GetWorld(), meshGen_->vertices_, meshGen_->triangles_, color, true, 10.f);
     }
 
-    //CreateWallMesh();
     //CreateFloor();
 }
 
@@ -423,12 +424,13 @@ void ARandomMapGenActor::CreateToStaticMesh(int32 sectionIndex)
 
         UStaticMeshComponent* staticMeshComp = NewObject<UStaticMeshComponent>(this, *meshCompName);
         staticMeshComp->SetStaticMesh(StaticMesh);
-        if (testMat_)
+        if (TestMat)
         {
-			StaticMesh->SetMaterial(0, testMat_);
+			StaticMesh->SetMaterial(0, TestMat);
         }
         staticMeshComp->RegisterComponent();
         staticMeshComp->SetWorldLocation(GetActorLocation());
+
 
         spawnedStaticMeshComps_.Add(sectionIndex, staticMeshComp);
 
