@@ -2,16 +2,16 @@
 	"RemapUnityFiles": 
 	{
 		"Module.ProceduralCave.cpp.obj": [
+			"MeshGenerator.cpp.obj",
 			"ProceduralCave.cpp.obj",
 			"RandomMapGenActor.cpp.obj",
-			"MeshGenerator.cpp.obj",
 			"RoomGenerator.cpp.obj"
 		],
 		"Module.ProceduralCave.gen.cpp.obj": [
-			"RandomMapGenActor.gen.cpp.obj",
 			"MeshGenerator.gen.cpp.obj",
+			"RoomGenerator.gen.cpp.obj",
 			"ProceduralCave.init.gen.cpp.obj",
-			"RoomGenerator.gen.cpp.obj"
+			"RandomMapGenActor.gen.cpp.obj"
 		]
 	}
 }

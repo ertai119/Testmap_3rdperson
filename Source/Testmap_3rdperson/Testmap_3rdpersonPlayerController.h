@@ -1,4 +1,4 @@
-// Copyright Epic Games, Inc. All Rights Reserved.
+﻿// Copyright Epic Games, Inc. All Rights Reserved.
 
 #pragma once
 
@@ -13,6 +13,7 @@ class ATestmap_3rdpersonPlayerController : public APlayerController
 
 public:
 	ATestmap_3rdpersonPlayerController();
+
 
 protected:
 	/** True if the controlled character should navigate to the mouse cursor. */

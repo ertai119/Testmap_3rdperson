@@ -7,25 +7,16 @@
 #include <MeshDescription.h>
 #include <ProceduralMeshConversion.h>
 #include <StaticMeshAttributes.h>
+#include "../../ApexDestruction/Source/ApexDestruction/Public/DestructibleActor.h"
+#include "../../ApexDestruction/Source/ApexDestruction/Public/DestructibleMesh.h"
+#include "../../ApexDestruction/Source/ApexDestruction/Public/DestructibleComponent.h"
+#include "../../ApexDestruction/Source/ApexDestruction/Public/DestructibleFractureSettings.h"
+#include "PhysXPublic.h"
+#include "../../ApexDestruction/Source/ApexDestruction/Public/ApexDestructibleAssetImport.h"
 //#include <ProceduralMeshConversion.h>
 
 #define LIVE_CELL (0)
 #define DEAD_CELL (1)
-
-template<typename T>
-static void InitArray2D(T& array, int32 height, int32 width, int32 initValue = 0)
-{
-    array.Empty();
-    array.SetNum(height);
-    for (int32 i = 0; i < array.Num(); i++)
-    {
-        array[i].SetNum(width);
-        for (auto& value : array[i])
-        {
-            value = initValue;
-        }                
-    }
-}
 
 // Sets default values
 ARandomMapGenActor::ARandomMapGenActor()
@@ -40,6 +31,61 @@ ARandomMapGenActor::ARandomMapGenActor()
 void ARandomMapGenActor::BeginPlay()
 {
 	Super::BeginPlay();	
+}
+
+bool ARandomMapGenActor::BuildDestructibleMeshFromFractureSettings(UDestructibleMesh& DestructibleMesh, FSkeletalMeshImportData* OutData)
+{
+	bool Success = false;
+
+#if WITH_APEX
+	apex::DestructibleAsset* NewApexDestructibleAsset = NULL;
+
+#if WITH_EDITORONLY_DATA
+	if (DestructibleMesh.FractureSettings != NULL)
+	{
+		TArray<UMaterialInterface*> OverrideMaterials;
+		OverrideMaterials.SetNumUninitialized(DestructibleMesh.Materials.Num());	//save old materials
+		for (int32 MaterialIndex = 0; MaterialIndex < DestructibleMesh.Materials.Num(); ++MaterialIndex)
+		{
+			OverrideMaterials[MaterialIndex] = DestructibleMesh.Materials[MaterialIndex].MaterialInterface;
+		}
+
+		int32 MaterialCount = DestructibleMesh.FractureSettings->Materials.Num();
+
+		DestructibleMesh.Materials.SetNum(MaterialCount);
+
+		for (int32 MaterialIndex = 0; MaterialIndex < DestructibleMesh.Materials.Num(); ++MaterialIndex)
+		{
+			if (MaterialIndex < OverrideMaterials.Num() && OverrideMaterials[MaterialIndex])//if user has overridden materials use it
+			{
+				DestructibleMesh.Materials[MaterialIndex].MaterialInterface = OverrideMaterials[MaterialIndex];
+				DestructibleMesh.Materials[MaterialIndex].ImportedMaterialSlotName = OverrideMaterials[MaterialIndex]->GetFName();
+				DestructibleMesh.Materials[MaterialIndex].MaterialSlotName = OverrideMaterials[MaterialIndex]->GetFName();
+			}
+			else
+			{
+				DestructibleMesh.Materials[MaterialIndex].MaterialInterface = DestructibleMesh.FractureSettings->Materials[MaterialIndex];
+				if (DestructibleMesh.FractureSettings->Materials[MaterialIndex])
+				{
+					DestructibleMesh.Materials[MaterialIndex].ImportedMaterialSlotName = DestructibleMesh.FractureSettings->Materials[MaterialIndex]->GetFName();
+					DestructibleMesh.Materials[MaterialIndex].MaterialSlotName = DestructibleMesh.FractureSettings->Materials[MaterialIndex]->GetFName();
+				}
+			}
+		}
+
+		nvidia::apex::DestructibleAssetCookingDesc DestructibleAssetCookingDesc;
+		DestructibleMesh.FractureSettings->BuildDestructibleAssetCookingDesc(DestructibleAssetCookingDesc);
+		NewApexDestructibleAsset = DestructibleMesh.FractureSettings->CreateApexDestructibleAsset(DestructibleAssetCookingDesc);
+	}
+#endif	// WITH_EDITORONLY_DATA
+
+	if (NewApexDestructibleAsset != NULL)
+	{
+		Success = SetApexDestructibleAsset(DestructibleMesh, *NewApexDestructibleAsset, OutData, EDestructibleImportOptions::PreserveSettings);
+	}
+#endif // WITH_APEX
+
+	return Success;
 }
 
 #if WITH_EDITOR
@@ -65,8 +111,22 @@ void ARandomMapGenActor::PostEditChangeProperty(FPropertyChangedEvent& PropertyC
 
 				auto fnMakeBorder = [this](const TArray<Coord>& tiles)
 				{
+					auto fnInitArray = [](TArray<TArray<int32>>& array, int32 height, int32 width, int32 initValue = 0)
+					{
+						array.Empty();
+						array.SetNum(height);
+						for (int32 i = 0; i < array.Num(); i++)
+						{
+							array[i].SetNum(width);
+							for (auto& value : array[i])
+							{
+								value = initValue;
+							}
+						}
+					};
+
 					TArray<TArray<int32>> borderMap;
-					InitArray2D(borderMap, Height + BorderSize * 2, Width + BorderSize * 2, LIVE_CELL);
+					fnInitArray(borderMap, Height + BorderSize * 2, Width + BorderSize * 2, LIVE_CELL);
 
 					for (const auto& tile : tiles)
 					{
@@ -88,10 +148,73 @@ void ARandomMapGenActor::PostEditChangeProperty(FPropertyChangedEvent& PropertyC
 					auto maps = fnMakeBorder(passage.tiles_);
 					GenerateMesh(maps, FColor::Red, true);
 				}
+
+				destructibleActor_ = GetWorld()->SpawnActor<ADestructibleActor>(destructible, GetActorTransform());
+				if (destructibleActor_)
+				{
+					auto comp = destructibleActor_->GetDestructibleComponent();
+					if (comp)
+					{
+						if (spawnedStaticMeshComps_.Num() > 0)
+						{							
+							UStaticMesh* staticMesh = spawnedStaticMeshComps_[0] ? spawnedStaticMeshComps_[0]->GetStaticMesh() : nullptr;
+							if (staticMesh)
+							{
+								UDestructibleMesh* DestructibleMesh = NewObject< UDestructibleMesh>(this, "dest_mesh");
+								DestructibleMesh->BuildFromStaticMesh(*staticMesh);
+
+								DestructibleMesh->DefaultDestructibleParameters.DamageParameters.bEnableImpactDamage = true;
+								
+								//void FDestructibleMeshEditorViewportClient::Fracture()
+								{
+#if WITH_APEX
+									//UDestructibleMesh* DestructibleMesh = DestructibleMeshEditorPtr.Pin()->GetDestructibleMesh();
+									if (DestructibleMesh != NULL)
+									{
+										TComponentReregisterContext<USkinnedMeshComponent> ReregisterContext;
+
+										DestructibleMesh->ReleaseResources();
+										DestructibleMesh->ReleaseResourcesFence.Wait();
+
+										if (DestructibleMesh->SourceStaticMesh)
+										{
+											DestructibleMesh->BuildFractureSettingsFromStaticMesh(DestructibleMesh->SourceStaticMesh);
+										}
+										else if (DestructibleMesh->ApexDestructibleAsset != NULL)
+										{
+											//DestructibleMesh = ImportDestructibleMeshFromApexDestructibleAsset(DestructibleMesh->GetOuter(), *DestructibleMesh->ApexDestructibleAsset, DestructibleMesh->GetFName(), DestructibleMesh->GetFlags(), NULL,
+												//EDestructibleImportOptions::PreserveSettings);
+										}
+
+										DestructibleMesh->FractureSettings->CreateVoronoiSitesInRootMesh();
+										DestructibleMesh->FractureSettings->VoronoiSplitMesh();
+
+
+										BuildDestructibleMeshFromFractureSettings(*DestructibleMesh, NULL);
+									}
+
+									//DestructibleMeshEditorPtr.Pin()->RefreshTool();
+									//DestructibleMeshEditorPtr.Pin()->SetCurrentPreviewDepth(0xFFFFFFFF);	// This will get clamped to the max depth
+#endif // WITH_APEX
+								}
+
+								comp->SetDestructibleMesh(DestructibleMesh);
+
+							}
+							
+						}
+						//comp->SetDestructibleMesh();
+					}
+				}
             }
             else
             {
                 DeInitializeMap();
+
+				if (destructibleActor_)
+				{
+					GetWorld()->DestroyActor(destructibleActor_);
+				}
             }
         }
 
@@ -456,7 +579,10 @@ void ARandomMapGenActor::DeInitializeMap()
 
     for (auto& elem : spawnedStaticMeshComps_)
     {
-        elem.Value->DestroyComponent();
+		if (elem.Value)
+		{
+			elem.Value->DestroyComponent();
+		}
     }
 
     FlushPersistentDebugLines(GetWorld());

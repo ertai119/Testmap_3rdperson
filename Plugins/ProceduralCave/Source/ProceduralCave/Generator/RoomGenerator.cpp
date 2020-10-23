@@ -1,4 +1,6 @@
 ﻿#include "RoomGenerator.h"
+#include "../Actor/RandomMapGenActor.h"
+#include "DrawDebugHelpers.h"
 
 #define LIVE_CELL (0)
 #define DEAD_CELL (1)
@@ -426,14 +428,6 @@ void URoomGenerator::CreatePassage(RoomPtr roomA, RoomPtr roomB, const Coord& ti
 
 	TArray<Coord> line = GetLine(tileA, tileB);
 
-	/*for (int32 i = 0; i < line.Num() - 1; i++)
-	{
-		FVector offset(0.f, 0.f, 2.f);
-		FVector startPos = CoordToWorldPosition(line[i]) + offset;
-		FVector endPos = CoordToWorldPosition(line[i + 1]) + offset;
-		DrawDebugLine(GetWorld(), startPos, endPos, FColor::Red, true);
-	}*/
-
 	bool found = false;
 	for (const auto& info : passageInfo_)
 	{
@@ -462,6 +456,14 @@ void URoomGenerator::CreatePassage(RoomPtr roomA, RoomPtr roomB, const Coord& ti
 		info.tiles_ = drawtiles;
 		passageInfo_.Add(info);
 	}
+
+/*
+	for (int32 i = 0; i < drawtiles.Num() - 1; i++)
+	{
+		FVector offset(0.f, 0.f, 2.f);
+		FVector startPos = Cast<ARandomMapGenActor>(GetOuter())->CoordToWorldPosition(drawtiles[i]) + offset;
+		DrawDebugPoint(GetWorld(), startPos, 10.f, FColor::Red, true);
+	}*/
 }
 
 TArray<Coord> URoomGenerator::GetLine(Coord from, Coord to) const
@@ -535,7 +537,11 @@ TArray<Coord> URoomGenerator::DrawCircle(const Coord& tile, int32 r)
 				int32 drawY = tile.tileY_ + y;
 				if (IsInMap(drawX, drawY))
 				{
-					retTiles.Add(Coord(drawX, drawY));
+					if (maps_[drawY][drawX] == DEAD_CELL)
+					{
+						retTiles.Add(Coord(drawX, drawY));
+					}
+					
 					maps_[drawY][drawX] = LIVE_CELL;
 				}
 			}

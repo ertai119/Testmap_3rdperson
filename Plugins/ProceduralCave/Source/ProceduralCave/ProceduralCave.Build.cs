@@ -29,6 +29,7 @@ public class ProceduralCave : ModuleRules
                 "ProceduralMeshComponent",
 				"MeshDescription",
 				"StaticMeshDescription",
+				"ApexDestruction",
 				// ... add other public dependencies that you statically link with here ...
 			}
 			);
@@ -41,6 +42,8 @@ public class ProceduralCave : ModuleRules
 				"Engine",
 				"Slate",
 				"SlateCore",
+				"RenderCore",
+
 				// ... add private dependencies that you statically link with here ...	
 			}
 			);

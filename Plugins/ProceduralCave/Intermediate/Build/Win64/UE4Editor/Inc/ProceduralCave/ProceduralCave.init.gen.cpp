@@ -21,7 +21,7 @@ void EmptyLinkFunctionForGeneratedCodeProceduralCave_init() {}
 				nullptr,
 				0,
 				PKG_CompiledIn | 0x00000000,
-				0xADAE0570,
+				0x6CC05F65,
 				0xAB736724,
 				METADATA_PARAMS(nullptr, 0)
 			};
