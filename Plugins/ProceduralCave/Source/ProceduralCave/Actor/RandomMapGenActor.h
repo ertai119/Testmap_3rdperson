@@ -36,14 +36,18 @@ public:
     void InitializeMap();
     void DeInitializeMap();
 
-    void GenerateMesh(const TArray<TArray<int32>>& map, const FColor& color, bool useProceduralMeshComp = true);
+    int32 GenerateMesh(const TArray<TArray<int32>>& map, const FColor& color, bool covertStaticMesh, bool ShowDebugMesh);
     void CreateFloor();
     FVector CoordToWorldPosition(const Coord& coord) const;
 
-    void CreateToStaticMesh(int32 sectionIndex);
+    void ConvertToStaticMeshFromProceduralMeshComp(int32 sectionIndex);
+    void ConvertToDestructibleMeshFromStaticMesh(int32 sectionIndex);
 
 	UPROPERTY(EditAnywhere)
-	UMaterial* TestMat;
+	class UMaterial* TestMat;
+
+	UPROPERTY(EditAnywhere)
+	float RandomSeed = 90.f;
 
     UPROPERTY(EditAnywhere)
     bool Generate;
@@ -93,14 +97,10 @@ public:
     UPROPERTY(EditAnywhere)
     int32 BirthCount = 4;
 
-    
-	UPROPERTY(EditInstanceOnly)
-		TSubclassOf<class ADestructibleActor> destructible;
-
 protected:
 
 	UPROPERTY(EditAnywhere)
-		class ADestructibleActor* destructibleActor_;
+	TArray<TWeakObjectPtr<class ADestructibleActor>> spawnedDestructibleActors_;
 
     UPROPERTY(EditAnywhere)
     class UProceduralMeshComponent* proceduralMeshComp_;

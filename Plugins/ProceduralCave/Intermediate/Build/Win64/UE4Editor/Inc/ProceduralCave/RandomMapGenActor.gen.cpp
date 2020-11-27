@@ -20,7 +20,6 @@ void EmptyLinkFunctionForGeneratedCodeRandomMapGenActor() {}
 	ENGINE_API UClass* Z_Construct_UClass_UStaticMeshComponent_NoRegister();
 	PROCEDURALMESHCOMPONENT_API UClass* Z_Construct_UClass_UProceduralMeshComponent_NoRegister();
 	APEXDESTRUCTION_API UClass* Z_Construct_UClass_ADestructibleActor_NoRegister();
-	COREUOBJECT_API UClass* Z_Construct_UClass_UClass();
 	ENGINE_API UClass* Z_Construct_UClass_UMaterial_NoRegister();
 // End Cross Module References
 	void ARandomMapGenActor::StaticRegisterNativesARandomMapGenActor()
@@ -47,13 +46,10 @@ void EmptyLinkFunctionForGeneratedCodeRandomMapGenActor() {}
 #endif
 		static const UE4CodeGen_Private::FObjectPropertyParams NewProp_proceduralMeshComp_;
 #if WITH_METADATA
-		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_destructibleActor__MetaData[];
+		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_spawnedDestructibleActors__MetaData[];
 #endif
-		static const UE4CodeGen_Private::FObjectPropertyParams NewProp_destructibleActor_;
-#if WITH_METADATA
-		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_destructible_MetaData[];
-#endif
-		static const UE4CodeGen_Private::FClassPropertyParams NewProp_destructible;
+		static const UE4CodeGen_Private::FArrayPropertyParams NewProp_spawnedDestructibleActors_;
+		static const UE4CodeGen_Private::FWeakObjectPropertyParams NewProp_spawnedDestructibleActors__Inner;
 #if WITH_METADATA
 		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_BirthCount_MetaData[];
 #endif
@@ -121,6 +117,10 @@ void EmptyLinkFunctionForGeneratedCodeRandomMapGenActor() {}
 		static void NewProp_Generate_SetBit(void* Obj);
 		static const UE4CodeGen_Private::FBoolPropertyParams NewProp_Generate;
 #if WITH_METADATA
+		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_RandomSeed_MetaData[];
+#endif
+		static const UE4CodeGen_Private::FFloatPropertyParams NewProp_RandomSeed;
+#if WITH_METADATA
 		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_TestMat_MetaData[];
 #endif
 		static const UE4CodeGen_Private::FObjectPropertyParams NewProp_TestMat;
@@ -157,19 +157,13 @@ void EmptyLinkFunctionForGeneratedCodeRandomMapGenActor() {}
 #endif
 	const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ARandomMapGenActor_Statics::NewProp_proceduralMeshComp_ = { "proceduralMeshComp_", nullptr, (EPropertyFlags)0x0020080000080009, UE4CodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(ARandomMapGenActor, proceduralMeshComp_), Z_Construct_UClass_UProceduralMeshComponent_NoRegister, METADATA_PARAMS(Z_Construct_UClass_ARandomMapGenActor_Statics::NewProp_proceduralMeshComp__MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_ARandomMapGenActor_Statics::NewProp_proceduralMeshComp__MetaData)) };
 #if WITH_METADATA
-	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_ARandomMapGenActor_Statics::NewProp_destructibleActor__MetaData[] = {
+	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_ARandomMapGenActor_Statics::NewProp_spawnedDestructibleActors__MetaData[] = {
 		{ "Category", "RandomMapGenActor" },
 		{ "ModuleRelativePath", "Actor/RandomMapGenActor.h" },
 	};
 #endif
-	const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ARandomMapGenActor_Statics::NewProp_destructibleActor_ = { "destructibleActor_", nullptr, (EPropertyFlags)0x0020080000000001, UE4CodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(ARandomMapGenActor, destructibleActor_), Z_Construct_UClass_ADestructibleActor_NoRegister, METADATA_PARAMS(Z_Construct_UClass_ARandomMapGenActor_Statics::NewProp_destructibleActor__MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_ARandomMapGenActor_Statics::NewProp_destructibleActor__MetaData)) };
-#if WITH_METADATA
-	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_ARandomMapGenActor_Statics::NewProp_destructible_MetaData[] = {
-		{ "Category", "RandomMapGenActor" },
-		{ "ModuleRelativePath", "Actor/RandomMapGenActor.h" },
-	};
-#endif
-	const UE4CodeGen_Private::FClassPropertyParams Z_Construct_UClass_ARandomMapGenActor_Statics::NewProp_destructible = { "destructible", nullptr, (EPropertyFlags)0x0014000000000801, UE4CodeGen_Private::EPropertyGenFlags::Class, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(ARandomMapGenActor, destructible), Z_Construct_UClass_ADestructibleActor_NoRegister, Z_Construct_UClass_UClass, METADATA_PARAMS(Z_Construct_UClass_ARandomMapGenActor_Statics::NewProp_destructible_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_ARandomMapGenActor_Statics::NewProp_destructible_MetaData)) };
+	const UE4CodeGen_Private::FArrayPropertyParams Z_Construct_UClass_ARandomMapGenActor_Statics::NewProp_spawnedDestructibleActors_ = { "spawnedDestructibleActors_", nullptr, (EPropertyFlags)0x0024080000000001, UE4CodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(ARandomMapGenActor, spawnedDestructibleActors_), EArrayPropertyFlags::None, METADATA_PARAMS(Z_Construct_UClass_ARandomMapGenActor_Statics::NewProp_spawnedDestructibleActors__MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_ARandomMapGenActor_Statics::NewProp_spawnedDestructibleActors__MetaData)) };
+	const UE4CodeGen_Private::FWeakObjectPropertyParams Z_Construct_UClass_ARandomMapGenActor_Statics::NewProp_spawnedDestructibleActors__Inner = { "spawnedDestructibleActors_", nullptr, (EPropertyFlags)0x0004000000000000, UE4CodeGen_Private::EPropertyGenFlags::WeakObject, RF_Public|RF_Transient|RF_MarkAsNative, 1, 0, Z_Construct_UClass_ADestructibleActor_NoRegister, METADATA_PARAMS(nullptr, 0) };
 #if WITH_METADATA
 	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_ARandomMapGenActor_Statics::NewProp_BirthCount_MetaData[] = {
 		{ "Category", "RandomMapGenActor" },
@@ -291,6 +285,13 @@ void EmptyLinkFunctionForGeneratedCodeRandomMapGenActor() {}
 	}
 	const UE4CodeGen_Private::FBoolPropertyParams Z_Construct_UClass_ARandomMapGenActor_Statics::NewProp_Generate = { "Generate", nullptr, (EPropertyFlags)0x0010000000000001, UE4CodeGen_Private::EPropertyGenFlags::Bool | UE4CodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, 1, sizeof(bool), sizeof(ARandomMapGenActor), &Z_Construct_UClass_ARandomMapGenActor_Statics::NewProp_Generate_SetBit, METADATA_PARAMS(Z_Construct_UClass_ARandomMapGenActor_Statics::NewProp_Generate_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_ARandomMapGenActor_Statics::NewProp_Generate_MetaData)) };
 #if WITH_METADATA
+	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_ARandomMapGenActor_Statics::NewProp_RandomSeed_MetaData[] = {
+		{ "Category", "RandomMapGenActor" },
+		{ "ModuleRelativePath", "Actor/RandomMapGenActor.h" },
+	};
+#endif
+	const UE4CodeGen_Private::FFloatPropertyParams Z_Construct_UClass_ARandomMapGenActor_Statics::NewProp_RandomSeed = { "RandomSeed", nullptr, (EPropertyFlags)0x0010000000000001, UE4CodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(ARandomMapGenActor, RandomSeed), METADATA_PARAMS(Z_Construct_UClass_ARandomMapGenActor_Statics::NewProp_RandomSeed_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_ARandomMapGenActor_Statics::NewProp_RandomSeed_MetaData)) };
+#if WITH_METADATA
 	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_ARandomMapGenActor_Statics::NewProp_TestMat_MetaData[] = {
 		{ "Category", "RandomMapGenActor" },
 		{ "ModuleRelativePath", "Actor/RandomMapGenActor.h" },
@@ -302,8 +303,8 @@ void EmptyLinkFunctionForGeneratedCodeRandomMapGenActor() {}
 		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ARandomMapGenActor_Statics::NewProp_spawnedStaticMeshComps__Key_KeyProp,
 		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ARandomMapGenActor_Statics::NewProp_spawnedStaticMeshComps__ValueProp,
 		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ARandomMapGenActor_Statics::NewProp_proceduralMeshComp_,
-		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ARandomMapGenActor_Statics::NewProp_destructibleActor_,
-		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ARandomMapGenActor_Statics::NewProp_destructible,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ARandomMapGenActor_Statics::NewProp_spawnedDestructibleActors_,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ARandomMapGenActor_Statics::NewProp_spawnedDestructibleActors__Inner,
 		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ARandomMapGenActor_Statics::NewProp_BirthCount,
 		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ARandomMapGenActor_Statics::NewProp_DeathCount,
 		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ARandomMapGenActor_Statics::NewProp_RoomThresholdAfterProcessed,
@@ -320,6 +321,7 @@ void EmptyLinkFunctionForGeneratedCodeRandomMapGenActor() {}
 		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ARandomMapGenActor_Statics::NewProp_SimulateCount,
 		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ARandomMapGenActor_Statics::NewProp_Simulate,
 		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ARandomMapGenActor_Statics::NewProp_Generate,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ARandomMapGenActor_Statics::NewProp_RandomSeed,
 		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ARandomMapGenActor_Statics::NewProp_TestMat,
 	};
 	const FCppClassTypeInfoStatic Z_Construct_UClass_ARandomMapGenActor_Statics::StaticCppClassTypeInfo = {
@@ -349,7 +351,7 @@ void EmptyLinkFunctionForGeneratedCodeRandomMapGenActor() {}
 		}
 		return OuterClass;
 	}
-	IMPLEMENT_CLASS(ARandomMapGenActor, 3018345207);
+	IMPLEMENT_CLASS(ARandomMapGenActor, 2778894530);
 	template<> PROCEDURALCAVE_API UClass* StaticClass<ARandomMapGenActor>()
 	{
 		return ARandomMapGenActor::StaticClass();

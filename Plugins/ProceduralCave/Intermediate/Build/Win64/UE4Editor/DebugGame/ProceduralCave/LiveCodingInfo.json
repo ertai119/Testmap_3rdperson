@@ -3,9 +3,9 @@
 	{
 		"Module.ProceduralCave.cpp.obj": [
 			"MeshGenerator.cpp.obj",
+			"RoomGenerator.cpp.obj",
 			"ProceduralCave.cpp.obj",
-			"RandomMapGenActor.cpp.obj",
-			"RoomGenerator.cpp.obj"
+			"RandomMapGenActor.cpp.obj"
 		],
 		"Module.ProceduralCave.gen.cpp.obj": [
 			"MeshGenerator.gen.cpp.obj",

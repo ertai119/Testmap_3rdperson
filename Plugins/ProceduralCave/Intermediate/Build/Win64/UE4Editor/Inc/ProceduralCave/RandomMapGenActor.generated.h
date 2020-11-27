@@ -59,7 +59,7 @@ DEFINE_VTABLE_PTR_HELPER_CTOR_CALLER(ARandomMapGenActor); \
 
 
 #define Testmap_3rdperson_Plugins_ProceduralCave_Source_ProceduralCave_Actor_RandomMapGenActor_h_15_PRIVATE_PROPERTY_OFFSET \
-	FORCEINLINE static uint32 __PPO__destructibleActor_() { return STRUCT_OFFSET(ARandomMapGenActor, destructibleActor_); } \
+	FORCEINLINE static uint32 __PPO__spawnedDestructibleActors_() { return STRUCT_OFFSET(ARandomMapGenActor, spawnedDestructibleActors_); } \
 	FORCEINLINE static uint32 __PPO__proceduralMeshComp_() { return STRUCT_OFFSET(ARandomMapGenActor, proceduralMeshComp_); } \
 	FORCEINLINE static uint32 __PPO__spawnedStaticMeshComps_() { return STRUCT_OFFSET(ARandomMapGenActor, spawnedStaticMeshComps_); }
 

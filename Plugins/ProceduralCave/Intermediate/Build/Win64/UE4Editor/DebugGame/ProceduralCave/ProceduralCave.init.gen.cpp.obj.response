@@ -12,8 +12,8 @@
 /D_DISABLE_EXTENDED_ALIGNED_STORAGE
 /source-charset:utf-8
 /execution-charset:utf-8
-/Od
 /Ob2
+/Od
 /errorReport:prompt
 /EHsc
 /Z7
@@ -25,7 +25,6 @@
 /we4458
 /we4459
 /wd4463
-/we4668
 /wd4244
 /wd4838
 /I .
@@ -60,6 +59,7 @@
 /I Runtime\Analytics\AnalyticsET\Public
 /I Runtime\Analytics\Analytics\Public
 /I Runtime\Sockets\Public
+/I Runtime\Net\Common\Public
 /I ..\Intermediate\Build\Win64\UE4Editor\Inc\AssetRegistry
 /I Runtime\AssetRegistry\Public
 /I ..\Intermediate\Build\Win64\UE4Editor\Inc\EngineMessages
@@ -90,18 +90,20 @@
 /I Runtime\NetworkReplayStreaming\NetworkReplayStreaming\Public
 /I ..\Intermediate\Build\Win64\UE4Editor\Inc\PhysicsCore
 /I Runtime\PhysicsCore\Public
+/I ..\Intermediate\Build\Win64\UE4Editor\Inc\DeveloperSettings
+/I Runtime\DeveloperSettings\Public
+/I ..\Intermediate\Build\Win64\UE4Editor\Inc\Chaos
 /I Runtime\Experimental
 /I Runtime\Experimental\Chaos\Public
 /I Runtime\Experimental\ChaosCore\Public
-/I ThirdParty
+/I ThirdParty\Intel
 /I Runtime\Experimental\Voronoi\Public
-/I ..\Intermediate\Build\Win64\UE4Editor\Inc\FieldSystemCore
-/I Runtime\Experimental\FieldSystem\Source
-/I Runtime\Experimental\FieldSystem\Source\FieldSystemCore\Public
 /I Runtime\SignalProcessing\Public
 /I ..\Intermediate\Build\Win64\UE4Editor\Inc\AudioExtensions
 /I Runtime\AudioExtensions\Public
 /I Runtime\AudioMixerCore\Public
+/I ..\Intermediate\Build\Win64\UE4Editor\Inc\PropertyAccess
+/I Runtime\PropertyAccess\Public
 /I ..\Intermediate\Build\Win64\UE4Editor\Inc\UnrealEd
 /I Editor
 /I Programs\UnrealLightmass\Public
@@ -172,6 +174,10 @@
 /I Editor\StructViewer\Public
 /I ..\Intermediate\Build\Win64\UE4Editor\Inc\ContentBrowser
 /I Editor\ContentBrowser\Public
+/I ..\Intermediate\Build\Win64\UE4Editor\Inc\ContentBrowserData
+/I Editor\ContentBrowserData\Public
+/I Developer\CollectionManager\Public
+/I ThirdParty
 /I ThirdParty\libSampleRate\Public
 /I Runtime\NetworkFileSystem\Public
 /I ..\Intermediate\Build\Win64\UE4Editor\Inc\UMG
@@ -188,6 +194,13 @@
 /I Runtime\PropertyPath\Public
 /I ..\Intermediate\Build\Win64\UE4Editor\Inc\NavigationSystem
 /I Runtime\NavigationSystem\Public
+/I ..\Intermediate\Build\Win64\UE4Editor\Inc\GeometryCollectionEngine
+/I Runtime\Experimental\GeometryCollectionEngine\Public
+/I ..\Intermediate\Build\Win64\UE4Editor\Inc\FieldSystemEngine
+/I Runtime\Experimental\FieldSystem\Source
+/I Runtime\Experimental\FieldSystem\Source\FieldSystemEngine\Public
+/I ..\Intermediate\Build\Win64\UE4Editor\Inc\ChaosSolverEngine
+/I Runtime\Experimental\ChaosSolverEngine\Public
 /I Developer\MeshBuilder\Public
 /I ..\Intermediate\Build\Win64\UE4Editor\Inc\MaterialShaderQualitySettings
 /I Runtime\MaterialShaderQualitySettings\Classes
@@ -195,13 +208,14 @@
 /I Runtime\Experimental\InteractiveToolsFramework\Public
 /I ..\Intermediate\Build\Win64\UE4Editor\Inc\ToolMenusEditor
 /I Editor\ToolMenusEditor\Public
+/I ..\Intermediate\Build\Win64\UE4Editor\Inc\ToolMenus
+/I Developer\ToolMenus\Public
 /I Runtime\Windows
 /I Runtime\Windows\XAudio2\Public
 /I Editor\AssetTagsEditor\Public
-/I Developer\CollectionManager\Public
 /I ..\Intermediate\Build\Win64\UE4Editor\Inc\AddContentDialog
 /I Editor\AddContentDialog\Public
-/I ThirdParty\IntelEmbree\Embree2140\Win64\include
+/I ThirdParty\Intel\Embree\Embree2140\Win64\include
 /I Developer\MeshUtilities\Public
 /I Developer\MeshMergeUtilities\Public
 /I Developer\HierarchicalLODUtilities\Public
@@ -218,13 +232,6 @@
 /I ..\Intermediate\Build\Win64\UE4Editor\Inc\Kismet
 /I Editor\Kismet\Classes
 /I Editor\Kismet\Public
-/I Runtime\PhysicsSQ\Public
-/I ..\Intermediate\Build\Win64\UE4Editor\Inc\ChaosSolvers
-/I Runtime\Experimental\ChaosSolvers\Public
-/I ..\Intermediate\Build\Win64\UE4Editor\Inc\GeometryCollectionCore
-/I Runtime\Experimental\GeometryCollectionCore\Public
-/I ..\Intermediate\Build\Win64\UE4Editor\Inc\GeometryCollectionSimulationCore
-/I Runtime\Experimental\GeometryCollectionSimulationCore\Public
 /I ..\Intermediate\Build\Win64\UE4Editor\Inc\ClothingSystemRuntimeInterface
 /I Runtime\ClothingSystemRuntimeInterface\Public
 /I C:\Project\Testmap_3rdperson\Plugins\ProceduralCave\Intermediate\Build\Win64\UE4Editor\Inc\ProceduralCave
@@ -232,6 +239,9 @@
 /I ..\Plugins\Runtime\ProceduralMeshComponent\Intermediate\Build\Win64\UE4Editor\Inc\ProceduralMeshComponent
 /I ..\Plugins\Runtime\ProceduralMeshComponent\Source
 /I ..\Plugins\Runtime\ProceduralMeshComponent\Source\ProceduralMeshComponent\Public
+/I ..\Plugins\Runtime\ApexDestruction\Intermediate\Build\Win64\UE4Editor\Inc\ApexDestruction
+/I ..\Plugins\Runtime\ApexDestruction\Source
+/I ..\Plugins\Runtime\ApexDestruction\Source\ApexDestruction\Public
 /I ThirdParty\PhysX3\PxShared\include
 /I ThirdParty\PhysX3\PxShared\include\cudamanager
 /I ThirdParty\PhysX3\PxShared\include\filebuf

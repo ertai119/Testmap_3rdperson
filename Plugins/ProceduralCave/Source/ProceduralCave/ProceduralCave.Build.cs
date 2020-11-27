@@ -25,7 +25,7 @@ public class ProceduralCave : ModuleRules
 		PublicDependencyModuleNames.AddRange(
 			new string[]
 			{
-				"Core",
+                "Core",
                 "ProceduralMeshComponent",
 				"MeshDescription",
 				"StaticMeshDescription",

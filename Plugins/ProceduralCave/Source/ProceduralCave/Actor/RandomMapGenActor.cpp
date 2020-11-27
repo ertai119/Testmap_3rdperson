@@ -13,7 +13,9 @@
 #include "../../ApexDestruction/Source/ApexDestruction/Public/DestructibleFractureSettings.h"
 #include "PhysXPublic.h"
 #include "../../ApexDestruction/Source/ApexDestruction/Public/ApexDestructibleAssetImport.h"
-//#include <ProceduralMeshConversion.h>
+#include <Engine/StaticMesh.h>
+#include <PhysicsEngine/BodySetup.h>
+#include <Materials/Material.h>
 
 #define LIVE_CELL (0)
 #define DEAD_CELL (1)
@@ -73,16 +75,19 @@ bool ARandomMapGenActor::BuildDestructibleMeshFromFractureSettings(UDestructible
 			}
 		}
 
-		nvidia::apex::DestructibleAssetCookingDesc DestructibleAssetCookingDesc;
+		apex::DestructibleAssetCookingDesc DestructibleAssetCookingDesc;
 		DestructibleMesh.FractureSettings->BuildDestructibleAssetCookingDesc(DestructibleAssetCookingDesc);
 		NewApexDestructibleAsset = DestructibleMesh.FractureSettings->CreateApexDestructibleAsset(DestructibleAssetCookingDesc);
 	}
 #endif	// WITH_EDITORONLY_DATA
 
+#if	WITH_EDITOR
 	if (NewApexDestructibleAsset != NULL)
 	{
 		Success = SetApexDestructibleAsset(DestructibleMesh, *NewApexDestructibleAsset, OutData, EDestructibleImportOptions::PreserveSettings);
 	}
+#endif
+
 #endif // WITH_APEX
 
 	return Success;
@@ -100,7 +105,7 @@ void ARandomMapGenActor::PostEditChangeProperty(FPropertyChangedEvent& PropertyC
             if (Generate)
             {
 				roomGen_ = NewObject<URoomGenerator>(this, TEXT("room"));
-				roomGen_->InitializeMap(Height, Width, SpawnProbability);
+				roomGen_->InitializeMap(Height, Width, RandomSeed, SpawnProbability);
 				
                 for (int32 i = 0; i < SimulateCount; i++)
                 {
@@ -139,82 +144,31 @@ void ARandomMapGenActor::PostEditChangeProperty(FPropertyChangedEvent& PropertyC
 				for (const auto& wall : allWalls)
 				{
 					auto maps = fnMakeBorder(wall);
-					//GenerateMesh(maps, FColor::Black, false);
+					GenerateMesh(maps, FColor::Black, false, false);
 				}                
 
+				TArray<int32> targetMeshSections;
 				const auto& passageInfos = roomGen_->GetPassageInfo();
 				for (const auto& passage : passageInfos)
 				{
 					auto maps = fnMakeBorder(passage.tiles_);
-					GenerateMesh(maps, FColor::Red, true);
+					int32 ret = GenerateMesh(maps, FColor::Red, true, true);
+					if (ret != INDEX_NONE)
+					{
+						targetMeshSections.Add(ret);
+					}
 				}
 
-				destructibleActor_ = GetWorld()->SpawnActor<ADestructibleActor>(destructible, GetActorTransform());
-				if (destructibleActor_)
+				CreateFloor();
+
+				for (int32 sectionIndex : targetMeshSections)
 				{
-					auto comp = destructibleActor_->GetDestructibleComponent();
-					if (comp)
-					{
-						if (spawnedStaticMeshComps_.Num() > 0)
-						{							
-							UStaticMesh* staticMesh = spawnedStaticMeshComps_[0] ? spawnedStaticMeshComps_[0]->GetStaticMesh() : nullptr;
-							if (staticMesh)
-							{
-								UDestructibleMesh* DestructibleMesh = NewObject< UDestructibleMesh>(this, "dest_mesh");
-								DestructibleMesh->BuildFromStaticMesh(*staticMesh);
-
-								DestructibleMesh->DefaultDestructibleParameters.DamageParameters.bEnableImpactDamage = true;
-								
-								//void FDestructibleMeshEditorViewportClient::Fracture()
-								{
-#if WITH_APEX
-									//UDestructibleMesh* DestructibleMesh = DestructibleMeshEditorPtr.Pin()->GetDestructibleMesh();
-									if (DestructibleMesh != NULL)
-									{
-										TComponentReregisterContext<USkinnedMeshComponent> ReregisterContext;
-
-										DestructibleMesh->ReleaseResources();
-										DestructibleMesh->ReleaseResourcesFence.Wait();
-
-										if (DestructibleMesh->SourceStaticMesh)
-										{
-											DestructibleMesh->BuildFractureSettingsFromStaticMesh(DestructibleMesh->SourceStaticMesh);
-										}
-										else if (DestructibleMesh->ApexDestructibleAsset != NULL)
-										{
-											//DestructibleMesh = ImportDestructibleMeshFromApexDestructibleAsset(DestructibleMesh->GetOuter(), *DestructibleMesh->ApexDestructibleAsset, DestructibleMesh->GetFName(), DestructibleMesh->GetFlags(), NULL,
-												//EDestructibleImportOptions::PreserveSettings);
-										}
-
-										DestructibleMesh->FractureSettings->CreateVoronoiSitesInRootMesh();
-										DestructibleMesh->FractureSettings->VoronoiSplitMesh();
-
-
-										BuildDestructibleMeshFromFractureSettings(*DestructibleMesh, NULL);
-									}
-
-									//DestructibleMeshEditorPtr.Pin()->RefreshTool();
-									//DestructibleMeshEditorPtr.Pin()->SetCurrentPreviewDepth(0xFFFFFFFF);	// This will get clamped to the max depth
-#endif // WITH_APEX
-								}
-
-								comp->SetDestructibleMesh(DestructibleMesh);
-
-							}
-							
-						}
-						//comp->SetDestructibleMesh();
-					}
+					ConvertToDestructibleMeshFromStaticMesh(sectionIndex);
 				}
             }
             else
             {
                 DeInitializeMap();
-
-				if (destructibleActor_)
-				{
-					GetWorld()->DestroyActor(destructibleActor_);
-				}
             }
         }
 
@@ -239,13 +193,15 @@ void ARandomMapGenActor::Tick(float DeltaTime)
 
 }
 
-void ARandomMapGenActor::GenerateMesh(const TArray<TArray<int32>>& map, const FColor& color, bool useProceduralMeshComp /*= true*/)
+int32 ARandomMapGenActor::GenerateMesh(const TArray<TArray<int32>>& map, const FColor& color, bool covertStaticMesh, bool ShowDebugMesh)
 {
+	int32 retMeshSection = INDEX_NONE;
+
     meshGen_ = NewObject<UMeshGenerator>(this, TEXT("mesh"));
 	meshGen_->InitData(map, 0.f, SquareSize);
     meshGen_->CalculateTriangle(WallHeight, true);
 
-	if (proceduralMeshComp_ && useProceduralMeshComp)
+	if (proceduralMeshComp_)
     {
         TArray<FColor> colors;
 		TArray<FVector2D> uv;
@@ -255,21 +211,27 @@ void ARandomMapGenActor::GenerateMesh(const TArray<TArray<int32>>& map, const FC
 			uv.Add(FVector2D(0.5f, 0.5f));
         }
         int32 newSectionIndex = proceduralMeshComp_->GetNumSections();
+		retMeshSection = newSectionIndex;
         proceduralMeshComp_->CreateMeshSection(newSectionIndex, meshGen_->vertices_, meshGen_->triangles_, {}, {}, uv, {}, {}, colors, {}, true);
 
-		CreateToStaticMesh(newSectionIndex);
+		if (covertStaticMesh)
+		{
+			ConvertToStaticMeshFromProceduralMeshComp(newSectionIndex);
+		}
     }
-    else
-    {
+
+	if (ShowDebugMesh)
+	{
 		for (auto& position : meshGen_->vertices_)
 		{
 			position += GetActorLocation();
-		}
-		
-        DrawDebugMesh(GetWorld(), meshGen_->vertices_, meshGen_->triangles_, color, true, 10.f);
-    }
 
-    //CreateFloor();
+			DrawDebugPoint(GetWorld(), position, 10.f, FColor::Red);
+		}
+		//DrawDebugMesh(GetWorld(), meshGen_->vertices_, meshGen_->triangles_, color, true, 10.f);		
+	}
+
+	return retMeshSection;
 }
 
 void ARandomMapGenActor::CreateFloor()
@@ -302,7 +264,6 @@ void ARandomMapGenActor::CreateFloor()
 	}
 	int32 newSectionIndex = proceduralMeshComp_->GetNumSections();
 	proceduralMeshComp_->CreateMeshSection(newSectionIndex, floorVertices, floorTriangles, {}, {}, {}, {}, {}, colors, {}, true);
-
 }
 
 FVector ARandomMapGenActor::CoordToWorldPosition(const Coord& coord) const
@@ -471,7 +432,7 @@ static FMeshDescription BuildMeshDescription(UProceduralMeshComponent* ProcMeshC
 	return MeshDescription;
 }
 
-void ARandomMapGenActor::CreateToStaticMesh(int32 sectionIndex)
+void ARandomMapGenActor::ConvertToStaticMeshFromProceduralMeshComp(int32 sectionIndex)
 {
     if (proceduralMeshComp_ == nullptr)
     {
@@ -495,8 +456,9 @@ void ARandomMapGenActor::CreateToStaticMesh(int32 sectionIndex)
 		StaticMesh->LightingGuid = FGuid::NewGuid();
 
 		// Add source to new StaticMesh
+#if WITH_EDITOR
 		FStaticMeshSourceModel& SrcModel = StaticMesh->AddSourceModel();
-		SrcModel.BuildSettings.bRecomputeNormals = false;
+		SrcModel.BuildSettings.bRecomputeNormals = true;
 		SrcModel.BuildSettings.bRecomputeTangents = false;
 		SrcModel.BuildSettings.bRemoveDegenerates = false;
 		SrcModel.BuildSettings.bUseHighPrecisionTangentBasis = false;
@@ -506,6 +468,7 @@ void ARandomMapGenActor::CreateToStaticMesh(int32 sectionIndex)
 		SrcModel.BuildSettings.DstLightmapIndex = 1;
 		StaticMesh->CreateMeshDescription(0, MoveTemp(MeshDescription));
 		StaticMesh->CommitMeshDescription(0);
+#endif
 
 		//// SIMPLE COLLISION
 		if (!proceduralMeshComp_->bUseComplexAsSimpleCollision)
@@ -518,6 +481,7 @@ void ARandomMapGenActor::CreateToStaticMesh(int32 sectionIndex)
 			NewBodySetup->bDoubleSidedGeometry = true;
 			NewBodySetup->CollisionTraceFlag = CTF_UseDefault;
 			NewBodySetup->CreatePhysicsMeshes();
+			StaticMesh->CreateNavCollision(true);
 		}
 
 		//// MATERIALS
@@ -536,32 +500,89 @@ void ARandomMapGenActor::CreateToStaticMesh(int32 sectionIndex)
 			StaticMesh->StaticMaterials.Add(FStaticMaterial(Material));
 		}
 
+#if WITH_EDITORONLY_DATA
 		//Set the Imported version before calling the build
 		StaticMesh->ImportVersion = EImportStaticMeshVersion::LastVersion;
-
+#endif 
+#if WITH_EDITOR
 		// Build mesh from source
 		StaticMesh->Build(false);
 		StaticMesh->PostEditChange();
-
+#endif
 		FString meshCompName = FString::Format(TEXT("staticmeshcomp_from_proceduralmesh_{0}"), { sectionIndex });
 
         UStaticMeshComponent* staticMeshComp = NewObject<UStaticMeshComponent>(this, *meshCompName);
         staticMeshComp->SetStaticMesh(StaticMesh);
+#if WITH_EDITOR
         if (TestMat)
         {
 			StaticMesh->SetMaterial(0, TestMat);
         }
+#endif
         staticMeshComp->RegisterComponent();
         staticMeshComp->SetWorldLocation(GetActorLocation());
 
-
         spawnedStaticMeshComps_.Add(sectionIndex, staticMeshComp);
 
+		//proceduralMeshComp_->SetMeshSectionVisible(sectionIndex, false);
         proceduralMeshComp_->ClearMeshSection(sectionIndex);
+	}
+}
 
-            //proceduralMeshComp_->;
-		// Notify asset registry of new asset
-		//FAssetRegistryModule::AssetCreated(StaticMesh);
+void ARandomMapGenActor::ConvertToDestructibleMeshFromStaticMesh(int32 sectionIndex)
+{
+	auto it = spawnedStaticMeshComps_.Find(sectionIndex);
+	if (it == nullptr)
+	{
+		return;
+	}
+
+	auto destructibleActor = GetWorld()->SpawnActor<ADestructibleActor>(ADestructibleActor::StaticClass(), GetActorTransform());
+	if (destructibleActor == nullptr)
+	{
+		return;
+	}
+
+	(*it)->SetVisibility(false);
+
+	spawnedDestructibleActors_.Add(destructibleActor);
+
+	UStaticMesh* staticMesh = (*it)->GetStaticMesh();
+	if (staticMesh)
+	{
+		UDestructibleMesh* DestructibleMesh = NewObject<UDestructibleMesh>(this, *FString::Format(TEXT("dest_mesh{0}"), { sectionIndex }));
+		DestructibleMesh->BuildFromStaticMesh(*staticMesh);
+
+		DestructibleMesh->DefaultDestructibleParameters.DamageParameters.bEnableImpactDamage = true;
+		DestructibleMesh->DefaultDestructibleParameters.DamageParameters.ImpactDamage = 1.f;
+
+#if WITH_APEX
+		if (DestructibleMesh != NULL)
+		{
+			TComponentReregisterContext<USkinnedMeshComponent> ReregisterContext;
+
+			DestructibleMesh->ReleaseResources();
+			DestructibleMesh->ReleaseResourcesFence.Wait();
+
+			if (DestructibleMesh->SourceStaticMesh)
+			{
+				DestructibleMesh->BuildFractureSettingsFromStaticMesh(DestructibleMesh->SourceStaticMesh);
+			}
+			else if (DestructibleMesh->ApexDestructibleAsset != NULL)
+			{
+				DestructibleMesh = ImportDestructibleMeshFromApexDestructibleAsset(DestructibleMesh->GetOuter(), *DestructibleMesh->ApexDestructibleAsset, DestructibleMesh->GetFName(), DestructibleMesh->GetFlags(), NULL,
+					EDestructibleImportOptions::PreserveSettings);
+			}
+
+			DestructibleMesh->FractureSettings->CreateVoronoiSitesInRootMesh();
+			DestructibleMesh->FractureSettings->VoronoiSplitMesh();
+
+
+			BuildDestructibleMeshFromFractureSettings(*DestructibleMesh, NULL);
+		}
+#endif // WITH_APEX
+
+		destructibleActor->GetDestructibleComponent()->SetDestructibleMesh(DestructibleMesh);
 	}
 }
 
@@ -573,7 +594,6 @@ void ARandomMapGenActor::DeInitializeMap()
 {
     if (proceduralMeshComp_)
     {
-        //proceduralMeshComp_->DestroyComponent();
         proceduralMeshComp_->ClearAllMeshSections();
     }
 
@@ -584,6 +604,16 @@ void ARandomMapGenActor::DeInitializeMap()
 			elem.Value->DestroyComponent();
 		}
     }
+	spawnedStaticMeshComps_.Empty();
+
+	for (auto& elem : spawnedDestructibleActors_)
+	{
+		if (elem.IsValid())
+		{
+			GetWorld()->DestroyActor(elem.Get());
+		}
+	}
+	spawnedDestructibleActors_.Empty();
 
     FlushPersistentDebugLines(GetWorld());
 }

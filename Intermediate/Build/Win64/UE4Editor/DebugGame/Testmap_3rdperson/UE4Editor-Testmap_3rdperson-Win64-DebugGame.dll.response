@@ -1,5 +1,5 @@
 /MANIFEST:EMBED
-/MANIFESTINPUT:C:\Project\UnrealProject\UE_4.25\Engine\Build\Windows\Resources\Default-Win64.manifest
+/MANIFESTINPUT:C:\Project\UnrealProject\UE_4.26\Engine\Build\Windows\Resources\Default-Win64.manifest
 /NOLOGO
 /DEBUG
 /errorReport:prompt
@@ -43,6 +43,13 @@
 "C:\Project\Testmap_3rdperson\Intermediate\Build\Win64\UE4Editor\DebugGame\Testmap_3rdperson\Testmap_3rdpersonGameMode.gen.cpp.obj"
 "C:\Project\Testmap_3rdperson\Intermediate\Build\Win64\UE4Editor\DebugGame\Testmap_3rdperson\Testmap_3rdpersonPlayerController.gen.cpp.obj"
 "C:\Project\Testmap_3rdperson\Intermediate\Build\Win64\UE4Editor\DebugGame\Testmap_3rdperson\Default.rc2.res"
+"C:\Project\UnrealProject\UE_4.26\Engine\Intermediate\Build\Win64\UE4Editor\Development\Core\UE4Editor-Core.lib"
+"C:\Project\UnrealProject\UE_4.26\Engine\Intermediate\Build\Win64\UE4Editor\Development\CoreUObject\UE4Editor-CoreUObject.lib"
+"C:\Project\UnrealProject\UE_4.26\Engine\Intermediate\Build\Win64\UE4Editor\Development\Engine\UE4Editor-Engine.lib"
+"C:\Project\UnrealProject\UE_4.26\Engine\Intermediate\Build\Win64\UE4Editor\Development\InputCore\UE4Editor-InputCore.lib"
+"C:\Project\UnrealProject\UE_4.26\Engine\Intermediate\Build\Win64\UE4Editor\Development\HeadMountedDisplay\UE4Editor-HeadMountedDisplay.lib"
+"C:\Project\UnrealProject\UE_4.26\Engine\Intermediate\Build\Win64\UE4Editor\Development\NavigationSystem\UE4Editor-NavigationSystem.lib"
+"C:\Project\UnrealProject\UE_4.26\Engine\Intermediate\Build\Win64\UE4Editor\Development\AIModule\UE4Editor-AIModule.lib"
 "delayimp.lib"
 "wininet.lib"
 "rpcrt4.lib"
@@ -67,13 +74,6 @@
 "setupapi.lib"
 "dwmapi.lib"
 "imm32.lib"
-"C:\Project\UnrealProject\UE_4.25\Engine\Intermediate\Build\Win64\UE4Editor\Development\Core\UE4Editor-Core.lib"
-"C:\Project\UnrealProject\UE_4.25\Engine\Intermediate\Build\Win64\UE4Editor\Development\CoreUObject\UE4Editor-CoreUObject.lib"
-"C:\Project\UnrealProject\UE_4.25\Engine\Intermediate\Build\Win64\UE4Editor\Development\Engine\UE4Editor-Engine.lib"
-"C:\Project\UnrealProject\UE_4.25\Engine\Intermediate\Build\Win64\UE4Editor\Development\InputCore\UE4Editor-InputCore.lib"
-"C:\Project\UnrealProject\UE_4.25\Engine\Intermediate\Build\Win64\UE4Editor\Development\HeadMountedDisplay\UE4Editor-HeadMountedDisplay.lib"
-"C:\Project\UnrealProject\UE_4.25\Engine\Intermediate\Build\Win64\UE4Editor\Development\NavigationSystem\UE4Editor-NavigationSystem.lib"
-"C:\Project\UnrealProject\UE_4.25\Engine\Intermediate\Build\Win64\UE4Editor\Development\AIModule\UE4Editor-AIModule.lib"
 /OUT:"C:\Project\Testmap_3rdperson\Binaries\Win64\UE4Editor-Testmap_3rdperson-Win64-DebugGame.dll"
 /IMPLIB:"C:\Project\Testmap_3rdperson\Intermediate\Build\Win64\UE4Editor\DebugGame\Testmap_3rdperson\UE4Editor-Testmap_3rdperson-Win64-DebugGame.suppressed.lib"
 /PDB:"C:\Project\Testmap_3rdperson\Binaries\Win64\UE4Editor-Testmap_3rdperson-Win64-DebugGame.pdb"

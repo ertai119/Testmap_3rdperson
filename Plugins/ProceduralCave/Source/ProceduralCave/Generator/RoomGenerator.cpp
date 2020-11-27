@@ -91,13 +91,15 @@ URoomGenerator::URoomGenerator(const FObjectInitializer& ObjectInitializer)
 
 }
 
-void URoomGenerator::InitializeMap(int32 height, int32 width, float spawnProbability)
+void URoomGenerator::InitializeMap(int32 height, int32 width, float randomSeed, float spawnProbability)
 {
 	height_ = height;
 	width_ = width;
 
 	maps_.Empty();
 	InitArray2D(maps_, height, width);
+
+	FRandomStream randSeed(randomSeed);
 
 	for (int y = 0; y < height; y++)
 	{
@@ -107,7 +109,7 @@ void URoomGenerator::InitializeMap(int32 height, int32 width, float spawnProbabi
 			{
 				maps_[y][x] = DEAD_CELL;
 			}
-			else if (FMath::RandRange(0.f, 100.f) < spawnProbability) //it has a chance of being a wall or not
+			else if (randSeed.RandRange(0.f, 100.f) < spawnProbability) //it has a chance of being a wall or not
 			{
 				maps_[y][x] = DEAD_CELL;
 			}

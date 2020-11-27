@@ -64,7 +64,7 @@ public:
 
 	URoomGenerator(const FObjectInitializer& ObjectInitializer);
 
-	void InitializeMap(int32 height, int32 width, float spawnProbability);
+	void InitializeMap(int32 height, int32 width, float randomSeed, float spawnProbability);
 	void SimulateMap(int32 birthCount, int32 deathCount);
 
 	void ProcessMap(int32 wallThreshold, int32 roomThreshold, int32 wallThresholdAfterGen, int32 roomThresholdAfterGen, int32 passgeSize);
